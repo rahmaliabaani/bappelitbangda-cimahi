@@ -3,7 +3,10 @@
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardBeritaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardDokumenController;
 use App\Http\Controllers\DashboardInformasiController;
+use App\Http\Controllers\DashboardKateBeritaController;
+use App\Http\Controllers\DashboardKateInfoController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\LoginController;
@@ -35,7 +38,6 @@ Route::get('/informasi/{informasi:slug}', [InformasiController::class, 'show']);
 Route::get('/dokumen', [DokumenController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
-// Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
 Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
 
@@ -67,24 +69,17 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 Route::resource('/dashboard/informasi', DashboardInformasiController::class)->middleware('auth');
 
-// Route::delete('/dashboard/informasi', [DashboardInformasiController::class, 'deleteAll'])->name('informasi.delete');
+Route::get('dashboard/berita/{berita:slug}/edit', [DashboardBeritaController::class, 'edit'])->middleware('auth')->name('berita.edit');
+
+Route::put('dashboard/berita/{berita:slug}', [DashboardBeritaController::class, 'update'])->middleware('auth')->name('berita.update');
 
 Route::resource('/dashboard/berita', DashboardBeritaController::class)->middleware('auth');
 
-// Route::get('dashboard/berita/{berita:slug}/edit', [DashboardBeritaController::class, 'edit'])->name('berita.edit');
-// Route::put('dashboard/berita/{berita:slug}', [DashboardBeritaController::class, 'update'])->name('berita.update');
+Route::get('dashboard/dokumen/{dokumen:slug}/edit', [DashboardDokumenController::class, 'edit'])->middleware('auth')->name('dokumen.edit');
 
-// Route::get('/dashboard/berita/create', function () {
-//     return view('dashboard/berita/create', ["title" => "Berita"]);
-// });
+Route::put('dashboard/dokumen/{dokumen:slug}', [DashboardDokumenController::class, 'update'])->middleware('auth')->name('dokumen.update');
 
-// Route::get('/dashboard/dokumen', function () {
-//     return view('dashboard/dokumen/index', ["title" => "Dokumen"]);
-// });
-
-// Route::get('/dashboard/dokumen/create', function () {
-//     return view('dashboard/dokumen/create', ["title" => "Dokumen"]);
-// });
+Route::resource('/dashboard/dokumen', DashboardDokumenController::class)->middleware('auth');
 
 // Route::get('/dashboard/profil', function () {
 //     return view('dashboard/profil/index', ["title" => "Profil"]);
@@ -102,18 +97,6 @@ Route::resource('/dashboard/berita', DashboardBeritaController::class)->middlewa
 //     return view('dashboard/galeri/create', ["title" => "Galeri"]);
 // });
 
-// Route::get('/dashboard/kategoriinformasi', function () {
-//     return view('dashboard/kategori-informasi/index', ["title" => "KategoriInformasi"]);
-// });
+Route::resource('/dashboard/kategori-informasi', DashboardKateInfoController::class)->middleware('auth');
 
-// Route::get('/dashboard/kategoriinformasi/create', function () {
-//     return view('dashboard/kategori-informasi/create', ["title" => "KategoriInformasi"]);
-// });
-
-// Route::get('/dashboard/kategoriberita', function () {
-//     return view('dashboard/kategori-berita/index', ["title" => "KategoriBerita"]);
-// });
-
-// Route::get('/dashboard/kategoriberita/create', function () {
-//     return view('dashboard/kategori-berita/create', ["title" => "KategoriBerita"]);
-// });
+Route::resource('/dashboard/kategori-berita', DashboardKateBeritaController::class)->middleware('auth');

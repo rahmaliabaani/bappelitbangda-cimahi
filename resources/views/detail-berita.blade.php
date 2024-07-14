@@ -15,10 +15,19 @@
       <div class="col-md-12 text-center">
         <h3 class="text-start">{{ $berita->judul }}</h3>
         <p class="text-start">{{ $berita->publish_at->format('d F Y H:i') }}</p>
-        <img src="/img/beranda.jpg" class="mb-3" alt="" width="500px">
-        <p class="pt-2">By. {{ $berita->user->name }}</p>
+        @if ($berita->gambar)
+          <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
+            <img src="{{ asset('storage/' . $berita->gambar) }}" alt="{{ $berita->kategoriBerita->nama }}" class="img-fluid mt-3">
+            {{-- <img src="{{ route('gambar.displayImage' , $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3"> --}}
+          </div>
+        @else
+          <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $berita->kategoriBerita->nama }}" class="img-fluid mt-3">
+          </div>
+        @endif
+        <p class="pt-4">By. {{ $berita->user->name }}</p>
         <h5 class="lh-base fw-normal kanankiri">
-          {!! nl2br(e($berita->deskripsi)) !!}
+          {!! nl2br($berita->deskripsi) !!}
         </h5>
       </div>
     </div>

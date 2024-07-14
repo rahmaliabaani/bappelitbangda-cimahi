@@ -7,11 +7,11 @@
       <h3>Tambah Informasi Publik</h3>
     </div>
     <div class="col-lg-12">
-      <form action="/dashboard/informasi" method="POST">
+      <form action="/dashboard/informasi" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-          <div class="col-md-6 pb-3">
-            <div class="form-floating">
+          <div class="col-md-6">
+            <div class="form-floating pb-3">
               <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" required name="judul" placeholder="Judul" value="{{ old('judul') }}">
               <label for="judul">Judul</label>
               @error('judul')
@@ -20,11 +20,7 @@
                 </div>
               @enderror
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 pb-3">
-            <div class="form-floating">
+            <div class="form-floating pb-3">
               <select class="form-select" id="kategori" name="id_kategori_informasi">
                 @foreach ($kategoris as $katInfo)
                   @if (old('id_kategori_informasi') == $katInfo->id)
@@ -36,20 +32,22 @@
               </select>
               <label for="kategori">Pilih Kategori Informasi</label>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 pb-3">
-            <div>
-              <label for="gambar-info" class="form-label" style="margin-bottom: -5px;">Gambar Informasi</label>
-              <input class="form-control form-control-sm" id="gambar-info" name="gambar-info" type="file">
+            <div class="pb-3">
+              <label for="gambar" class="form-label" style="margin-bottom: -5px;">Gambar Informasi</label>
+              <img src="" id="img-preview" class="img-fluid col-sm-5 d-block">
+              <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file">
+              @error('gambar')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-8 pb-3">
-            <div class="">
-              <label for="deskripsi" class="form-label" style="margin-bottom: -5px;">Isi Informasi</label>
+            <div>
+              <label for="deskripsi" class="form-label">Isi Informasi</label>
               @error('deskripsi')
                 <p class="text-danger">{{ $message }}</p>
               @enderror
@@ -66,6 +64,21 @@
 </main>
 
 <script>
+$("#gambar").change(function () {
+    previewImage(this);
+  });
+
+  function previewImage(input) {
+    if(input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img-preview').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   document.addEventListener('trix-file-accept', function(e) {
     e.preventDefault();
   })

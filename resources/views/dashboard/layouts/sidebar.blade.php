@@ -41,13 +41,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fs-6 {{ ($title === 'KategoriInformasi') ? 'active' : '' }}" href="/dashboard/kategoriinformasi">
+                <a class="nav-link fs-6 {{ ($title === 'KategoriInformasi') ? 'active' : '' }}" href="/dashboard/kategori-informasi">
                   <span class="align-text-bottom"></span>
                     Kategori Informasi
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fs-6 {{ ($title === 'KategoriBerita') ? 'active' : '' }}" href="/dashboard/kategoriberita">
+                <a class="nav-link fs-6 {{ ($title === 'KategoriBerita') ? 'active' : '' }}" href="/dashboard/kategori-berita">
                   <span class="align-text-bottom"></span>
                     Kategori Berita
                 </a>

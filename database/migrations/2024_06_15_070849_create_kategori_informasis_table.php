@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kategori_informasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_user');
             $table->string('nama')->unique();
             $table->string('slug')->unique();
             $table->timestamps();

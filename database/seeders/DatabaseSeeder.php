@@ -45,17 +45,20 @@ class DatabaseSeeder extends Seeder
         
         KategoriInformasi::create([
             'nama' => 'Kebijakan',
-            'slug' => 'kebijakan'
+            'slug' => 'kebijakan',
+            'id_user' => 2
         ]);
 
         KategoriInformasi::create([
             'nama' => 'Lingkungan',
-            'slug' => 'lingkungan'
+            'slug' => 'lingkungan',
+            'id_user' => 1
         ]);
 
         KategoriInformasi::create([
             'nama' => 'Pendidikan',
-            'slug' => 'pendidikan'
+            'slug' => 'pendidikan',
+            'id_user' => 2
         ]);
 
         Informasi::create([
@@ -89,17 +92,20 @@ class DatabaseSeeder extends Seeder
 
         KategoriBerita::create([
             'nama' => 'Kebijakan',
-            'slug' => 'kebijakan'
+            'slug' => 'kebijakan',
+            'id_user' => 1
         ]);
 
         KategoriBerita::create([
             'nama' => 'Lingkungan',
-            'slug' => 'lingkungan'
+            'slug' => 'lingkungan',
+            'id_user' => 1
         ]);
 
         KategoriBerita::create([
             'nama' => 'Pendidikan',
-            'slug' => 'pendidikan'
+            'slug' => 'pendidikan',
+            'id_user' => 2
         ]);
 
         Berita::create([

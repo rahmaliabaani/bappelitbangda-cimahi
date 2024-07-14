@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use console;
 use Carbon\Carbon;
 use App\Models\Informasi;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriInformasi;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardInformasiController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardInformasiController extends Controller
     {
         return view('dashboard.informasi.index', [
             "title" => "Informasi",
-            "informasi" => Informasi::where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
+            "informasi" => Informasi::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
             // "info" => Informasi::all()
 
         ]);
@@ -44,8 +45,13 @@ class DashboardInformasiController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required|max:255|unique:informasis',
             'id_kategori_informasi' => 'required',
+            'gambar' => 'image|file|max:1024',
             'deskripsi' => 'required'
         ]);
+
+        if ($request->file('gambar')) {
+            $validatedData['gambar'] = $request->file('gambar')->store('gambar-info');
+        }
 
         $validatedData['slug'] = Str::slug($request->judul);
 
@@ -85,6 +91,7 @@ class DashboardInformasiController extends Controller
     {
         $rules = [
             'id_kategori_informasi' => 'required',
+            'gambar' => 'image|file|max:1024',
             'deskripsi' => 'required'
         ];
 
@@ -93,6 +100,13 @@ class DashboardInformasiController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        if ($request->file('gambar')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['gambar'] = $request->file('gambar')->store('gambar-info');
+        }
 
         $validatedData['slug'] = Str::slug($request->judul);
 
@@ -109,8 +123,33 @@ class DashboardInformasiController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->ids;
-        Informasi::whereIn('id',$ids)->delete();
+        $ids = $request->input('ids');
+
+        if (count($ids) > 1) {
+            foreach ($ids as $id) {
+                $info = Informasi::findOrFail($id);
+
+                // Hapus file gambar dari storage
+                if (Storage::exists($info->gambar)) {
+                    Storage::delete($info->gambar);
+                }
+
+                // Hapus data dari database
+                $info->delete();
+            }
+        } else {
+            $id = $ids[0];
+            $info = Informasi::findOrFail($id);
+
+            // Hapus file gambar dari storage
+            if (Storage::exists($info->gambar)) {
+                Storage::delete($info->gambar);
+            }
+
+            // Hapus data dari database
+            $info->delete();
+        }
+        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
         return response()->json(["success" => "Informasi berhasil dihapus!"]);
     }
 }

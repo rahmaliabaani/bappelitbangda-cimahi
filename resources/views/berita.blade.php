@@ -26,12 +26,17 @@
       <div class="col-lg-3 pb-3">
         <div class="card" style="width: 19rem; border: none;">
           <div class="position-absolute px-3 py-2 text-white" style="background-color: #FF8E26;">{{ $brt->kategoriBerita->nama }}</div>
-          <img src="img/beranda.jpg" class="card-img-top" alt="...">
+          @if ($brt->gambar)
+            <img src="{{ asset('storage/' . $brt->gambar) }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="max-height: 200px;">
+            {{-- <img src="{{ route('gambar.displayImage' , $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3"> --}}
+          @else
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="max-height: 200px;">
+          @endif
           <div class="card-body">
             <p class="card-text text-secondary">{{ $brt->publish_at->format('d F Y H:i') }}</p>
             <a href="/berita/{{ $brt->slug }}" class="text-decoration-none fs-5">{{ $brt->judul }}</a>
             <p class="card-text text-truncate">
-                {{ $brt->deskripsi }}
+                {{ strip_tags($brt->deskripsi) }}
             </p>
           </div>
         </div>

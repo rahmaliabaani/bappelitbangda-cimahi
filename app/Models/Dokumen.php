@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dokumen extends Model
 {
@@ -11,6 +12,19 @@ class Dokumen extends Model
 
     // Atribut yang tidak bisa diisi manual
     protected $guarded = ['id'];
+
+    public function scopeFilter(Builder $query) : void
+    {
+        // Pencarian: ketika inputan cari kosong maka pencarian berhenti, tapi jika ada inputan maka menjalankan perintah function yaitu ambil querynya dan ambil nilai input carinya
+        
+        $query->where('nama', 'like', '%' . request('cari') . '%')
+                ->orWhere('kategori', 'like', '%' . request('cari') . '%');
+    }
+
+    public static $kategoriD = [
+        'Arsip Paparan',
+        'Dokumen Perencanaan',
+    ];
 
     // Untuk Konversi string publish_at menjadi objek carbon = mengubah format penulisan tanggalbulantahun jammenit
     protected $casts = ['publish_at' => 'datetime',];

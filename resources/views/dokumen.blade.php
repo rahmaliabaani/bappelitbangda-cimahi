@@ -31,18 +31,12 @@
                 </tr>
               </thead>
               <tbody>
-                @php
-                  $id=1;
-                @endphp
                 @foreach ($dokumen1 as $dkn1)
                 <tr>
-                  <td>{{ $id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $dkn1->nama }}</td>
-                  <td><a href="/detail-dokumen">Lihat</a></td>
+                  <td><a href="{{ asset('storage/' . $dkn1->dokumen) }}" target="_blank">Lihat</a></td>
                 </tr>
-                @php
-                    $id++;
-                @endphp
                 @endforeach
               </tbody>
             </table>
@@ -57,18 +51,12 @@
                 </tr>
               </thead>
               <tbody>
-                @php
-                  $id=1;
-                @endphp
                 @foreach ($dokumen2 as $dkn2)
                 <tr>
-                  <td>{{ $id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $dkn2->nama }}</td>
-                  <td><a href="/detai-dokumen">Lihat</a></td>
+                  <td><a href="{{ asset('storage/' . $dkn2->dokumen) }}" target="_blank">Lihat</a></td>
                 </tr>
-                @php
-                    $id++;
-                @endphp
                 @endforeach
               </tbody>
             </table>

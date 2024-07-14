@@ -7,7 +7,7 @@
       <h3>Edit Informasi Publik</h3>
     </div>
     <div class="col-lg-12">
-      <form action="/dashboard/informasi/{{ $informasi->slug }}" method="POST">
+      <form action="/dashboard/informasi/{{ $informasi->slug }}" method="POST" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="row">
@@ -42,8 +42,19 @@
         <div class="row">
           <div class="col-md-6 pb-3">
             <div>
-              <label for="gambar-info" class="form-label" style="margin-bottom: -5px;">Gambar Informasi</label>
-              <input class="form-control form-control-sm" id="gambar-info" name="gambar-info" type="file">
+              <label for="gambar" class="form-label" style="margin-bottom: -5px;">Gambar Informasi</label>
+              <input type="hidden" name="oldImage" value="{{ $informasi->gambar }}">
+              @if ($informasi->gambar)
+                <img src="{{ asset('storage/' . $informasi->gambar) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
+              @else
+                <img src="" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
+              @endif
+              <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file">
+              @error('gambar')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
           </div>
         </div>
@@ -67,6 +78,21 @@
 </main>
 
 <script>
+$("#gambar").change(function () {
+    previewImage(this);
+  });
+
+  function previewImage(input) {
+    if(input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img-preview').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   document.addEventListener('trix-file-accept', function(e) {
     e.preventDefault();
   })

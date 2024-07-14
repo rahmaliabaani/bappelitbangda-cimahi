@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Dokumen::class, 'id_user', 'id');
     }
+
+    public function kategoriInformasi()
+    {
+        return $this->hasMany(kategoriInformasi::class, 'id_user', 'id');
+    }
+
+    public function kategoriBerita()
+    {
+        return $this->hasMany(kategoriBerita::class, 'id_user', 'id');
+    }
 }

@@ -7,7 +7,7 @@
       <h3>Berita</h3>
     </div>
     <div class="row pb-3">
-      <div class="col-lg-9">
+      <div class="col-lg-9 pb-2">
         <a href="/dashboard/berita/create" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tambah Data"><img src="/img/add.svg" alt="" width="25px"></a>
 
         <a type="button" class="delete-all" id="delete-all" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Hapus Data"><img src="/img/delete.svg" alt="" width="25px"></a>
@@ -48,12 +48,17 @@
             <td>{{ $brt->judul }}</td>
             <td>{{ $brt->kategoriBerita->nama }}</td>
             <td>{{ $brt->publish_at }}</td>
-            <td><a href="/dashboard/berita/{{ $brt->id }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
+            <td><a href="/dashboard/berita/{{ $brt->slug }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
           </tr>
           @endforeach
         </tbody>
       </table>
     </div>
+
+    <div class="d-flex justify-content-end">
+      {{ $berita->links() }}
+    </div>
+
   </div>
 </main>
 

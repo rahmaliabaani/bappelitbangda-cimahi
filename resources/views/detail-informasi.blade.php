@@ -13,11 +13,23 @@
 <section class="informasi tatanan" id="informasi">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 text-center">
+      <div class="col-md-12">
         <h3 class="text-start">{{ $informasi->judul }}</h3>
         <p class="text-start">{{ $informasi->publish_at->format('d F Y H:i') }}</p>
-        <img src="../img/beranda.jpg" alt="" width="500px">
-        <p class="pt-4">By. {{ $informasi->user->name }}</p>
+
+        @if ($informasi->gambar)
+          <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
+            <img src="{{ asset('storage/' . $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3">
+            {{-- <img src="{{ route('gambar.displayImage' , $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3"> --}}
+          </div>
+        @else
+          <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3">
+          </div>
+        @endif
+
+        {{-- <img src="../img/beranda.jpg" alt="" width="500px"> --}}
+        <p class="pt-4 text-center">By. {{ $informasi->user->name }}</p>
         <h5 class="lh-base fw-normal kanankiri">
            {!! nl2br($informasi->deskripsi) !!}
         </h5>

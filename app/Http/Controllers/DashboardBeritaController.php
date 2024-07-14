@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriBerita;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardBeritaController extends Controller
 {
@@ -17,7 +18,7 @@ class DashboardBeritaController extends Controller
     {
         return view('dashboard.berita.index', [
             "title" => "Berita",
-            "berita" => Berita::where('id_user', auth()->user()->id)->filter()->get(),
+            "berita" => Berita::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
             // "brt" => Berita::all()
         ]);
     }
@@ -41,8 +42,13 @@ class DashboardBeritaController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required|max:255|unique:beritas',
             'id_kategori_berita' => 'required',
+            'gambar' => 'image|file|max:1024',
             'deskripsi' => 'required'
         ]);
+
+        if ($request->file('gambar')) {
+            $validatedData['gambar'] = $request->file('gambar')->store('gambar-berita');
+        }
 
         $validatedData['slug'] = Str::slug($request->judul);
 
@@ -68,13 +74,11 @@ class DashboardBeritaController extends Controller
      */
     public function edit(Berita $berita)
     {
-        // return view('dashboard.berita.update', [
-        //     "title" => "Berita",
-        //     "berita" => $berita,
-        //     "kategoris" => KategoriBerita::all()
-        // ]);
-
-        return $berita;
+        return view('dashboard.berita.update', [
+            "title" => "Berita",
+            "berita" => $berita,
+            "kategoris" => KategoriBerita::all()
+        ]);
     }
 
     /**
@@ -82,25 +86,30 @@ class DashboardBeritaController extends Controller
      */
     public function update(Request $request, Berita $berita)
     {
-        // $rules = [
-        //     'id_kategori_berita' => 'required',
-        //     'deskripsi' => 'required'
-        // ];
+        $rules = [
+            'id_kategori_berita' => 'required',
+            'gambar' => 'image|file|max:1024',
+            'deskripsi' => 'required'
+        ];
 
-        // if ($request->judul != $berita->judul) {
-        //     $rules['judul'] = 'required|unique:beritas';
-        // }
+        if ($request->judul != $berita->judul) {
+            $rules['judul'] = 'required|unique:beritas';
+        }
 
-        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
-        // $validatedData['slug'] = Str::slug($request->judul);
+        if ($request->file('gambar')) {
+            $validatedData['gambar'] = $request->file('gambar')->store('gambar-berita');
+        }
 
-        // $validatedData['id_user'] = auth()->user()->id;
+        $validatedData['slug'] = Str::slug($request->judul);
 
-        // Berita::where('id', $berita->id)
-        //     ->update($validatedData);
+        $validatedData['id_user'] = auth()->user()->id;
 
-        // return redirect('/dashboard/berita')->with('success', 'Berita berhasil diedit!');
+        Berita::where('id', $berita->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/berita')->with('success', 'Berita berhasil diedit!');
     }
 
     /**
@@ -108,8 +117,33 @@ class DashboardBeritaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->ids;
-        Berita::whereIn('id',$ids)->delete();
-        return response()->json(["success" => "Berita berhasil dihapus!"]);
+        $ids = $request->input('ids');
+
+        if (count($ids) > 1) {
+            foreach ($ids as $id) {
+                $brt = Berita::findOrFail($id);
+
+                // Hapus file gambar dari storage
+                if (Storage::exists($brt->gambar)) {
+                    Storage::delete($brt->gambar);
+                }
+
+                // Hapus data dari database
+                $brt->delete();
+            }
+        } else {
+            $id = $ids[0];
+            $brt = Berita::findOrFail($id);
+
+            // Hapus file gambar dari storage
+            if (Storage::exists($brt->gambar)) {
+                Storage::delete($brt->gambar);
+            }
+
+            // Hapus data dari database
+            $brt->delete();
+        }
+        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
+        return response()->json(["success" => "Informasi berhasil dihapus!"]);
     }
 }
