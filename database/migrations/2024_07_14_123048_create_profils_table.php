@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dokumens', function (Blueprint $table) {
+        Schema::create('profils', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_officials');
             $table->foreignId('id_user');
-            $table->string('nama');
-            $table->enum('kategori', ['Arsip Paparan', 'Dokumen Perencanaan']);
-            $table->string('slug')->unique();
-            $table->string('dokumen');
+            $table->integer('periode')->unique();
+            $table->string('tujuan');
+            $table->text('sasaran');
+            $table->string('tugas');
+            $table->text('fungsi');
+            $table->text('sejarah');
+            $table->string('gambar_struktur');
             $table->timestamp('publish_at');
             $table->timestamps();
         });
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokumens');
+        Schema::dropIfExists('profils');
     }
 };

@@ -1,66 +1,108 @@
-@include('dashboard.layouts.header')
+@extends('dashboard.layouts.main')
 
-@include('dashboard.layouts.sidebar')
+@section('container')
+<main class="col-md-7 ms-sm-auto col-lg-10 px-md-4 pt-3">
+  <div class="shadow p-3 mb-5 bg-body rounded">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h3>Staf Sekretariat</h3>
+    </div>
+    <div class="row pb-3">
+      <div class="col-lg-4 pb-2">
+        <a href="/admin/staf/create" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tambah Data"><img src="/img/add.svg" alt="" width="25px"></a>
 
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3">
-  	<div class="shadow p-3 mb-5 bg-body rounded">
-    	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      	<h3>Staf Sekretariat</h3>
-    	</div>
-    	<div class="row">
-      	<div class="col-md-9">
-        	<a href="/admin/staf/create" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tambah Data"><img src="/img/add.svg" alt="" width="25px"></a>
-        	<a href="/admin/staf/delete" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Hapus Data"><img src="/img/delete.svg" alt="" width="25px"></a>
-      	</div>
-      	<div class="col-md-3">
-        	<input class="form-control form-control-sm" type="text" placeholder="Cari" aria-label=".form-control-sm example">
-      	</div>
-    	</div>
-    	<div class="pt-3">
-      	<table class="table table-bordered text-center">
-        	<thead>
-          	<tr>
-            	<th scope="col">#</th>
-            	<th scope="col">Judul</th>
-            	<th scope="col">Kategori</th>
-            	<th scope="col">Publish_at</th>
-            	<th scope="col">Aksi</th>
-            	<th scope="col">#</th>
-          	</tr>
-        	</thead>
-        	<tbody>
-          	<tr>
-            	<th scope="row">1</th>
-            	<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, sequi?</td>
-            	<td>Pengumuman</td>
-            	<td>2024-02-02</td>
-            	<td><a href="/kelola-berita/update" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
-            	<td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-          	</tr>
-          	<tr>
-							<th scope="row">2</th>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, sequi?</td>
-							<td>Pengumuman</td>
-							<td>2024-02-02</td>
-							<td><a href="/kelola-berita/update" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
-							<td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-          	</tr>
-        	</tbody>
-      	</table>
-    	</div>
-  	</div>
+        <a type="button" class="delete-all" id="delete-all" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Hapus Data"><img src="/img/delete.svg" alt="" width="25px"></a>
+      </div>
+      <div class="col-lg-3">
+        <form action="/admin/staf">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Cari.." name="cari" value="{{ request('cari') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    <canvas class="my-4 w-100" id="myChart" width="900" height="180"></canvas>
-  </main>
+    @if (session()->has('success'))
+      <div class="alert alert-success col-md-6" role="alert">
+        {{ session('success') }}
+      </div>
+    @endif
 
-	<script>
-		// Tooltip
-		const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    <div class="pt-1 col-lg-7">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select-all"></th>
+            <th scope="col">#</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Email</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($staf as $stf)
+          <tr id="staf_ids{{ $stf->id }}">
+            <td><input class="form-check-input" type="checkbox" name="ids" value="{{ $stf->id }}"></td>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $stf->name }}</td>
+            <td>{{ $stf->email }}</td>
+            <td><a href="/admin/staf/{{ $stf->id }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
 
-		const exampleEl = document.getElementById('example')
-		const tooltip = new bootstrap.Tooltip(exampleEl, options)
-	</script>
+    <div class="col-lg-7 d-flex justify-content-end">
+      {{ $staf->links() }}
+    </div>
+
+  </div>
+</main>
+
+
+<script src="/js/popper.min.js"></script>
+<script>
+// Jquery
+$("#select-all").click(function(e){
+    $('.form-check-input').prop('checked',$(this).prop('checked'));
+  });
+
+  $('#delete-all').click(function(e) {
+    e.preventDefault();
+    var all_ids = [];
+    $('input:checkbox[name=ids]:checked').each(function() {
+      all_ids.push($(this).val());
+    });
+    if(all_ids.length <= 0){
+      alert("Pilih minimal satu data untuk dihapus!")
+    }else{
+      if(confirm("Yakin akan menghapus?")) {
+        $.ajax({
+          url:"/admin/staf/destroy",
+          type:"DELETE",
+          data:{
+            ids:all_ids,
+            _token:'{{ csrf_token() }}'
+          },
+          success:function(response){
+            $.each(all_ids, function(key,val){
+              $('#staf_ids'+val).remove();
+            })
+          }
+        });
+      }
+    }
+  });
+
+  // Tooltip
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+  const exampleEl = document.getElementById('example')
+  const tooltip = new bootstrap.Tooltip(exampleEl, options)
+</script>
 
 </body>
 </html>
+@endsection

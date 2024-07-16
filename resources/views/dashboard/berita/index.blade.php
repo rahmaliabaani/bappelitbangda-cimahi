@@ -79,8 +79,7 @@ $("#select-all").click(function(e){
     if(all_ids.length <= 0){
       alert("Pilih minimal satu data untuk dihapus!")
     }else{
-      confirm("Yakin akan menghapus?")
-
+      if(confirm("Yakin akan menghapus?")){
       $.ajax({
         url:"/dashboard/berita/destroy",
         type:"DELETE",
@@ -94,6 +93,7 @@ $("#select-all").click(function(e){
           })
         }
       });
+      }
     }
   });
 

@@ -50,15 +50,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         KategoriInformasi::create([
-            'nama' => 'Lingkungan',
-            'slug' => 'lingkungan',
+            'nama' => 'Kegiatan',
+            'slug' => 'kegiatan',
             'id_user' => 1
         ]);
 
         KategoriInformasi::create([
             'nama' => 'Pendidikan',
             'slug' => 'pendidikan',
-            'id_user' => 2
+            'id_user' => 1
         ]);
 
         Informasi::create([
@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'judul-ketiga',
             'deskripsi' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quia sint nulla iusto laudantium, delectus excepturi minus obcaecati necessitatibus dignissimos! Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatum cupiditate inventore iure ea pariatur similique animi optio possimus repudiandae, eius, aut iusto ipsa. Porro temporibus consequatur a ipsum commodi ab dolorum. Modi, incidunt temporibus earum error tempora fugit, mollitia voluptates odio nemo ad at vel dolorem inventore perspiciatis ullam!',
             'publish_at' => Carbon::now(),
-            'id_kategori_informasi' => 2,
+            'id_kategori_informasi' => 1,
             'id_user' => 2
         ]);
 
@@ -97,8 +97,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         KategoriBerita::create([
-            'nama' => 'Lingkungan',
-            'slug' => 'lingkungan',
+            'nama' => 'Kota',
+            'slug' => 'kota',
             'id_user' => 1
         ]);
 

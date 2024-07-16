@@ -84,55 +84,6 @@ class DashboardDokumenController extends Controller
      */
     public function update(Request $request, Dokumen $dokumen)
     {
-        // $request->validate([
-        //     'kategori' => 'required',
-        //     'dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-        // ]);
-
-        // $document = Dokumen::findOrFail($dokumen->slug);
-        // $document->nama = $request->input('nama');
-        // $document['slug'] = Str::slug($request->nama);
-        // $document['id_user'] = auth()->user()->id;
-
-        // if ($request->hasFile('dokumen')) {
-        //     $file = $request->file('dokumen');
-        //     $path = $file->store('dokumen', 'public');
-        //     $document->file_path = $path;
-        // }
-
-        // $document->save();
-
-        // return redirect('/dashboard/dokumen')->with('success', 'Dokumen berhasil diedit!');
-
-        // $this->validate($request, [
-        //     'kategori' => 'required',
-        //     'dokumen' => 'required|mimes:docx,pdf|max:2048'
-        // ]);
-
-        // if ($request->hasFile('dokumen')) {
-        //     $file = $request->file('dokumen');
-        //     $file->storeAs('storage/dokumen', $file->hashName());
-
-        //     Storage::delete('storage/dokumen' . $dokumen->dokumen);
-
-        //     $dokumen->update([
-        //         'dokumen' => $file->hashName(),
-        //         'nama' => $request->nama,
-        //         'slug' => Str::slug($request->nama),
-        //         'kategori' => $request->kategori,
-        //         'id_user' => auth()->user()->id
-        //     ]);
-        // } else {
-        //     $dokumen->update([
-        //         'nama' => $request->nama,
-        //         'slug' => Str::slug($request->nama),
-        //         'kategori' => $request->kategori,
-        //         'id_user' => auth()->user()->id
-        //     ]);
-        // }
-
-        // return redirect()->route('dokumen.index')->with(['success' => 'Dokumen Berhasil diubah!']);
-
         $rules = [
             'kategori' => 'required',
             'dokumen' => 'mimes:docx,pdf|max:2048'
@@ -147,7 +98,7 @@ class DashboardDokumenController extends Controller
         if ($request->file('dokumen')) {
 
             if ($request->oldFile) {
-                Storage::delete('storage/dokumen' . $dokumen->dokumen);
+                Storage::delete($request->oldFile);
             }
             $validatedData['dokumen'] = $request->file('dokumen')->store('dokumen');
         }

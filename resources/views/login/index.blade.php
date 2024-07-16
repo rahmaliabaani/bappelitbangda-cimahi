@@ -69,12 +69,6 @@
                 <label for="password">Password</label>
             </div>
             <button type="submit" class="btn btn-oren text-white">Masuk</button>
-            <div class="form-check pt-3">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label text-white" for="flexCheckDefault">
-                  Ingatkan saya
-                </label>
-              </div>
         </form>
     </div>
 </div>

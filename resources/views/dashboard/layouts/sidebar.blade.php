@@ -60,7 +60,7 @@
             </h5>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link fs-6 {{ ($title === 'Admin') ? 'active' : '' }}" href="/admin">
+                <a class="nav-link fs-6 {{ ($title === 'Admin') ? 'active' : '' }}" href="/admin/staf">
                   Staf Sekretariat
                 </a>
               </li>

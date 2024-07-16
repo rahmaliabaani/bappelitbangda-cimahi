@@ -79,21 +79,21 @@ $("#select-all").click(function(e){
     if(all_ids.length <= 0){
       alert("Pilih minimal satu data untuk dihapus!")
     }else{
-      confirm("Yakin akan menghapus?")
-
-      $.ajax({
-        url:"/dashboard/dokumen/destroy",
-        type:"DELETE",
-        data:{
-          ids:all_ids,
-          _token:'{{ csrf_token() }}'
-        },
-        success:function(response){
-          $.each(all_ids, function(key,val){
-            $('#dokumen_ids'+val).remove();
-          })
-        }
-      });
+      if(confirm("Yakin akan menghapus?")){
+        $.ajax({
+          url:"/dashboard/dokumen/destroy",
+          type:"DELETE",
+          data:{
+            ids:all_ids,
+            _token:'{{ csrf_token() }}'
+          },
+          success:function(response){
+            $.each(all_ids, function(key,val){
+              $('#dokumen_ids'+val).remove();
+            })
+          }
+        });
+      }
     }
   });
 

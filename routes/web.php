@@ -7,9 +7,11 @@ use App\Http\Controllers\DashboardDokumenController;
 use App\Http\Controllers\DashboardInformasiController;
 use App\Http\Controllers\DashboardKateBeritaController;
 use App\Http\Controllers\DashboardKateInfoController;
+use App\Http\Controllers\DashboardProfilController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StafController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,9 +63,11 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/admin', function () {
-    return view('admin/staf/index', ["title" => "Admin"]);
-});
+Route::get('admin/staf/{user:id}/edit', [StafController::class, 'edit'])->middleware('auth')->name('staf.edit');
+
+Route::put('admin/staf/{user:id}', [StafController::class, 'update'])->middleware('auth')->name('staf.update');
+
+Route::resource('admin/staf', StafController::class)->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
@@ -81,9 +85,7 @@ Route::put('dashboard/dokumen/{dokumen:slug}', [DashboardDokumenController::clas
 
 Route::resource('/dashboard/dokumen', DashboardDokumenController::class)->middleware('auth');
 
-// Route::get('/dashboard/profil', function () {
-//     return view('dashboard/profil/index', ["title" => "Profil"]);
-// });
+Route::resource('dashboard/profil', DashboardProfilController::class)->middleware('auth');
 
 // Route::get('/dashboard/profil/create', function () {
 //     return view('dashboard/profil/create', ["title" => "Profil"]);

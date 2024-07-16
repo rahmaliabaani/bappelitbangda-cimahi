@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Berita extends Model
+class Profil extends Model
 {
     use HasFactory;
 
-    // Atribut yang tidak bisa diisi manual
     protected $guarded = ['id'];
 
-    // Untuk Konversi string publish_at menjadi objek carbon = mengubah format penulisan tanggalbulantahun jammenit
     protected $casts = ['publish_at' => 'datetime'];
 
     public function scopeFilter(Builder $query) : void
@@ -23,20 +21,14 @@ class Berita extends Model
                 ->orWhere('deskripsi', 'like', '%' . request('cari') . '%');
     }
 
-    // Relasi Tabel
-    public function kategoriBerita()
-    {
-        return $this->belongsTo(KategoriBerita::class, 'id_kategori_berita');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    // untuk penggunaan slug di resources
-    public function getRouteKeyName(): string
+    public function official()
     {
-        return 'slug';
+        return $this->hasOne(Official::class, 'id');
     }
+
 }
