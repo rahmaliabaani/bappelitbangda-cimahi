@@ -36,28 +36,6 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="pb-3">
-            <label for="fungsi" class="form-label">Fungsi</label>
-            @error('fungsi')
-              <p class="text-danger">{{ $message }}</p>
-            @enderror
-              <input id="fungsi" type="hidden" name="fungsi" required value="{{ old('fungsi') }}">
-            <trix-editor input="fungsi"></trix-editor>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="pb-3">
-            <label for="sejarah" class="form-label">Sejarah</label>
-            @error('sejarah')
-              <p class="text-danger">{{ $message }}</p>
-            @enderror
-              <input id="sejarah" type="hidden" name="sejarah" required value="{{ old('sejarah') }}">
-            <trix-editor input="sejarah"></trix-editor>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="pb-3">
             <label for="tugas" class="form-label">Tugas</label>
             @error('tugas')
               <p class="text-danger">{{ $message }}</p>
@@ -80,6 +58,16 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="pb-3">
+            <label for="fungsi" class="form-label">Fungsi</label>
+            @error('fungsi')
+              <p class="text-danger">{{ $message }}</p>
+            @enderror
+              <input id="fungsi" type="hidden" name="fungsi" required value="{{ old('fungsi') }}">
+            <trix-editor input="fungsi"></trix-editor>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="pb-3">
             <label for="sasaran" class="form-label">Sasaran</label>
             @error('sasaran')
               <p class="text-danger">{{ $message }}</p>
@@ -89,11 +77,23 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="pb-3">
+            <label for="sejarah" class="form-label">Sejarah</label>
+            @error('sejarah')
+              <p class="text-danger">{{ $message }}</p>
+            @enderror
+              <input id="sejarah" type="hidden" name="sejarah" required value="{{ old('sejarah') }}">
+            <trix-editor input="sejarah"></trix-editor>
+          </div>
+        </div>
+      </div>
       <hr>
       <div class="row pt-3">
         <div class="col-md-6">
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabad') is-invalid @enderror" id="nama_kabad" name="nama_kepala_badan" placeholder="Periode">
+            <input type="text" class="form-control @error('nama_kabad') is-invalid @enderror" id="nama_kabad" name="nama_kepala_badan" placeholder="Periode" value="{{ old('nama_kepala_badan') }}">
             <label for="nama_kabad">Nama Kepala Badan</label>
             @error('nama_kabad')
                 <div class="invalid-feedback">
@@ -101,21 +101,6 @@
                 </div>
               @enderror
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e">
-            <label for="nama_kabid_p3e">Nama Kepala Bidang P3E</label>
-            @error('nama_kabid_p3e')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
           <div class="pb-3">
             <label for="foto_kabad" class="form-label" style="margin-bottom: -1px;">Foto Kepala Badan</label>
               <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
@@ -125,25 +110,9 @@
                   {{ $message }}
                 </div>
               @enderror
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="pb-3">
-            <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
-              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
-              @error('foto_kabid_p3e')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
+          </div>          
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_p3m') is-invalid @enderror" id="nama_kabid_p3m" placeholder="Periode" name="nama_kepalabidang_p3m">
+            <input type="text" class="form-control @error('nama_kabid_p3m') is-invalid @enderror" id="nama_kabid_p3m" placeholder="Periode" name="nama_kepalabidang_p3m" value="{{ old('nama_kepalabidang_p3m') }}">
             <label for="nama_kabid_p3m">Nama Kepala Bidang P3M</label>
             @error('nama_kabid_p3m')
                 <div class="invalid-feedback">
@@ -151,21 +120,6 @@
                 </div>
               @enderror
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pp') is-invalid @enderror" id="nama_kabid_pp" placeholder="Periode" name="nama_kepalabidang_pp">
-            <label for="nama_kabid_pp">Nama Kepala Bidang PP</label>
-            @error('nama_kabid_pp')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
           <div class="pb-3">
             <label for="foto_kabid_p3m" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3M</label>
               <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
@@ -176,24 +130,8 @@
                 </div>
               @enderror
           </div>
-        </div>
-      	<div class="col-lg-6">
-          <div class="pb-3">
-            <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PP</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
-              <input class="form-control mt-2 form-control-sm @error('foto_kabid_pp') is-invalid @enderror" id="foto_kabid_pp" name="foto_kepalabidang_pp" type="file">
-              @error('foto_kabid_pp')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-          </div>
-        </div>
-			</div>
-      <div class="row">
-        <div class="col-md-6">
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pesd') is-invalid @enderror" id="nama_kabid_pesd" placeholder="Periode" name="nama_kepalabidang_pesd">
+            <input type="text" class="form-control @error('nama_kabid_pesd') is-invalid @enderror" id="nama_kabid_pesd" placeholder="Periode" name="nama_kepalabidang_pesd" value="{{ old('nama_kepalabidang_pesd') }}">
             <label for="nama_kabid_pesd">Nama Kepala Bidang PESD</label>
             @error('nama_kabid_pesd')
                 <div class="invalid-feedback">
@@ -201,21 +139,6 @@
                 </div>
               @enderror
           </div>
-        </div>
-      	<div class="col-md-6">
-          <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pik') is-invalid @enderror" id="nama_kabid_pik" placeholder="Periode" name="nama_kepalabidang_pik">
-            <label for="nama_kabid_pik">Nama Kepala Bidang PIK</label>
-            @error('nama_kabid_pik')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-          </div>
-        </div>
-			</div>
-      <div class="row">
-        <div class="col-lg-6">
           <div class="pb-3">
             <label for="foto_kabid_pesd" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PESD</label>
               <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
@@ -226,20 +149,67 @@
                 </div>
               @enderror
           </div>
-        </div>
-      	<div class="col-lg-6">
+        </div>  
+        <div class="col-md-6">
+          <div class="form-floating pb-3">
+            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e" value="{{ old('nama_kepalabidang_p3e') }}">
+            <label for="nama_kabid_p3e">Nama Kepala Bidang P3E</label>
+            @error('nama_kabid_p3e')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+          <div class="pb-3">
+            <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
+              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
+              @error('foto_kabid_p3e')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+          </div>
+          <div class="form-floating pb-3">
+            <input type="text" class="form-control @error('nama_kabid_pp') is-invalid @enderror" id="nama_kabid_pp" placeholder="Periode" name="nama_kepalabidang_pp" value="{{ old('nama_kepalabidang_pp') }}">
+            <label for="nama_kabid_pp">Nama Kepala Bidang PP</label>
+            @error('nama_kabid_pp')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+          </div>
+          <div class="pb-3">
+            <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PP</label>
+              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              <input class="form-control mt-2 form-control-sm @error('foto_kabid_pp') is-invalid @enderror" id="foto_kabid_pp" name="foto_kepalabidang_pp" type="file">
+              @error('foto_kabid_pp')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+          </div>
+          <div class="form-floating pb-3">
+            <input type="text" class="form-control @error('nama_kabid_pik') is-invalid @enderror" id="nama_kabid_pik" placeholder="Periode" name="nama_kepalabidang_pik" value="{{ old('nama_kepalabidang_pik') }}">
+            <label for="nama_kabid_pik">Nama Kepala Bidang PIK</label>
+            @error('nama_kabid_pik')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+          </div>
           <div class="pb-3">
             <label for="foto_kabid_pik" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PIK</label>
               <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pik') is-invalid @enderror" id="foto_kabid_pik" name="foto_kepalabidang_pik" type="file">
               @error('foto_kabid_pik')
                 <div class="invalid-feedback">
-                  {{ $message }}
+                    {{ $message }}
                 </div>
               @enderror
           </div>
         </div>
-			</div>
+      </div>
 
       <button type="submit" class="btn btn-primary">Simpan</button>
       <button type="button" class="btn btn-danger"><a href="/dashboard/profil" class="text-decoration-none text-white">Batal</a></button>      

@@ -4,6 +4,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardBeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardDokumenController;
+use App\Http\Controllers\DashboardGaleriController;
 use App\Http\Controllers\DashboardInformasiController;
 use App\Http\Controllers\DashboardKateBeritaController;
 use App\Http\Controllers\DashboardKateInfoController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StafController;
+use App\Models\Galeri;
+use App\Models\Profil;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,19 +88,9 @@ Route::put('dashboard/dokumen/{dokumen:slug}', [DashboardDokumenController::clas
 
 Route::resource('/dashboard/dokumen', DashboardDokumenController::class)->middleware('auth');
 
-Route::resource('dashboard/profil', DashboardProfilController::class)->middleware('auth');
+Route::resource('/dashboard/profil', DashboardProfilController::class)->middleware('auth');
 
-// Route::get('/dashboard/profil/create', function () {
-//     return view('dashboard/profil/create', ["title" => "Profil"]);
-// });
-
-// Route::get('/dashboard/galeri', function () {
-//     return view('dashboard/galeri/index', ["title" => "Galeri"]);
-// });
-
-// Route::get('/dashboard/galeri/create', function () {
-//     return view('dashboard/galeri/create', ["title" => "Galeri"]);
-// });
+Route::resource('/dashboard/galeri', DashboardGaleriController::class)->middleware('auth');
 
 Route::resource('/dashboard/kategori-informasi', DashboardKateInfoController::class)->middleware('auth');
 

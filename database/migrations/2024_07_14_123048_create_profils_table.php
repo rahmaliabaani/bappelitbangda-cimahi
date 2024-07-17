@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_officials');
             $table->foreignId('id_user');
+            // $table->boolean('is_active')->default(false);
             $table->integer('periode')->unique();
             $table->string('tujuan');
             $table->text('sasaran');
@@ -33,5 +34,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('profils');
+            // $table->dropColumn('is_active');
+        // });
     }
 };

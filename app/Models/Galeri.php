@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Dokumen extends Model
+class Galeri extends Model
 {
     use HasFactory;
 
-    // Atribut yang tidak bisa diisi manual
     protected $guarded = ['id'];
 
     public function scopeFilter(Builder $query) : void
@@ -21,15 +20,11 @@ class Dokumen extends Model
                 ->orWhere('kategori', 'like', '%' . request('cari') . '%');
     }
 
-    public static $kategoriD = [
-        'Arsip Paparan',
-        'Dokumen Perencanaan',
-    ];
+    // public static $kategoriG = [
+    //     'Foto',
+    //     'Vidio',
+    // ];
 
-    // Untuk Konversi string publish_at menjadi objek carbon = mengubah format penulisan tanggalbulantahun jammenit
-    protected $casts = ['publish_at' => 'datetime',];
-
-    // Relasi Tabel
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');

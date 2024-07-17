@@ -19,6 +19,13 @@
         </form>
       </div>
     </div>
+
+    @if (session()->has('success'))
+      <div class="alert alert-success col-md-6" role="alert">
+        {{ session('success') }}
+      </div>
+    @endif
+
     <div class="pt-3">
       <table class="table table-bordered text-center">
         <thead>
@@ -27,10 +34,11 @@
             <th scope="col">Periode</th>
             <th scope="col">Nama Kepala Badan</th>
             <th scope="col">Tanggal Publikasi</th>
-            <th colspan="2">Aksi</th>
+            <th colspan="2" style="">Aksi</th>
           </tr>
         </thead>
         <tbody>
+          @if ($profil->count())
           @foreach ($profil as $prof)
           <tr>
             <td>{{ $loop->iteration }}</td>
@@ -38,15 +46,16 @@
             <td>{{ $prof->official->nama_kepala_badan }}</td>
             <td>{{ $prof->publish_at }}</td>
             <td>
-              <a href="/dashboard/profil/{{ $prof->periode }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a>
+              <a href="/dashboard/profil/{{ $prof->id }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a>
             </td>
-            <td style="padding-left: 3%; padding-right: 3%;">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" />
+            <td class="col-sm-1">
+              <div class="form-check form-switch d-flex justify-content-center">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault"/>
               </div>
             </td>
           </tr>
           @endforeach
+          @endif
         </tbody>
       </table>
     </div>

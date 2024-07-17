@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h3>Tambah Informasi Publik</h3>
     </div>
-    <div class="col-lg-12">
+    <div class="col-lg-12 pb-5">
       <form action="/dashboard/informasi" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">

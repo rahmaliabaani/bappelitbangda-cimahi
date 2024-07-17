@@ -41,6 +41,7 @@
           </tr>
         </thead>
         <tbody>
+          @if ($berita->count())
           @foreach ($berita as $brt)
           <tr id="berita_ids{{ $brt->id }}">
             <td><input class="form-check-input" type="checkbox" name="ids" value="{{ $brt->id }}"></td>
@@ -51,6 +52,7 @@
             <td><a href="/dashboard/berita/{{ $brt->slug }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
           </tr>
           @endforeach
+          @endif
         </tbody>
       </table>
     </div>

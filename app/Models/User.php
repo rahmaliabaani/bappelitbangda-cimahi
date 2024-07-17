@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Profil::class, 'id_user', 'id');
     }
+
+    public function galeri()
+    {
+        return $this->hasMany(Galeri::class, 'id_user', 'id');
+    }
 }

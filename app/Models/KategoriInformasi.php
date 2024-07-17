@@ -28,4 +28,10 @@ class KategoriInformasi extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    // untuk penggunaan slug di resources
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

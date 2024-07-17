@@ -6,48 +6,99 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h3>Galeri</h3>
     </div>
-    <div class="row">
-      <div class="col-md-9">
-        <a href="/kelola-galeri/create" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tambah Data"><img src="/img/add.svg" alt="" width="25px"></a>
-        <a href="/kelola-dokumen/delete" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Hapus Data"><img src="/img/delete.svg" alt="" width="25px"></a>
+    <div class="row pb-3">
+      <div class="col-lg-9 pb-2">
+        <a href="/dashboard/galeri/create" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tambah Data"><img src="/img/add.svg" alt="" width="25px"></a>
+
+        <a type="button" class="delete-all" id="delete-all" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Hapus Data"><img src="/img/delete.svg" alt="" width="25px"></a>
       </div>
-      <div class="col-md-3">
-        <input class="form-control form-control-sm" type="text" placeholder="Cari" aria-label=".form-control-sm example">
+      <div class="col-lg-3">
+        <form action="/dashboard/galeri">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Cari.." name="cari" value="{{ request('cari') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="pt-3">
+
+    @if (session()->has('success'))
+      <div class="alert alert-success col-md-6" role="alert">
+        {{ session('success') }}
+      </div>
+    @endif
+
+    <div class="pt-1">
       <table class="table table-bordered text-center">
         <thead>
           <tr>
+            <th><input type="checkbox" id="select-all"></th>
             <th scope="col">#</th>
             <th scope="col">Nama Dokumentasi</th>
             <th scope="col">Kategori</th>
-            <th scope="col">Publish_at</th>
+            <th scope="col">Tanggal Publikasi</th>
             <th scope="col">Aksi</th>
-            <th scope="col">#</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Lorem ipsum dolor sit amet consectetur adipisicing</td>
-            <td>Foto</td>
-            <td>2024-02-02</td>
-            <td>
-              <a href="/kelola-galeri/update" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a>
-            </td>
-            <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+          @if ($galeri->count())
+          @foreach ($galeri as $gal)
+          <tr id="galeri_ids{{ $gal->id }}">
+            <td><input class="form-check-input" type="checkbox" name="ids" value="{{ $gal->id }}"></td>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $gal->nama }}</td>
+            <td>{{ $gal->kategori }}</td>
+            <td>{{ $gal->publish_at }}</td>
+            <td><a href="/dashboard/galeri/{{ $gal->slug }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
           </tr>
+          @endforeach
+          @endif
         </tbody>
       </table>
     </div>
-  </div>
 
-    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-  </main>
+    <div class="d-flex justify-content-end">
+      {{ $galeri->links() }}
+    </div>
+
+  </div>
+</main>
+
 
 <script src="/js/popper.min.js"></script>
 <script>
+// Jquery
+$("#select-all").click(function(e){
+    $('.form-check-input').prop('checked',$(this).prop('checked'));
+  });
+
+  $('#delete-all').click(function(e) {
+    e.preventDefault();
+    var all_ids = [];
+    $('input:checkbox[name=ids]:checked').each(function() {
+      all_ids.push($(this).val());
+    });
+    if(all_ids.length <= 0){
+      alert("Pilih minimal satu data untuk dihapus!")
+    }else{
+      if(confirm("Yakin akan menghapus?")){
+        $.ajax({
+          url:"/dashboard/dokumen/destroy",
+          type:"DELETE",
+          data:{
+            ids:all_ids,
+            _token:'{{ csrf_token() }}'
+          },
+          success:function(response){
+            $.each(all_ids, function(key,val){
+              $('#dokumen_ids'+val).remove();
+            })
+          }
+        });
+      }
+    }
+  });
+
   // Tooltip
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

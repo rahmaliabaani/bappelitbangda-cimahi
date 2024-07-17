@@ -7,6 +7,7 @@ use App\Models\Official;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardProfilController extends Controller
 {
@@ -116,7 +117,11 @@ class DashboardProfilController extends Controller
      */
     public function edit(Profil $profil)
     {
-        //
+        return view('dashboard.profil.update', [
+            "title" => "Profil",
+            "profil" => $profil,
+            "officials" => Official::all()
+        ]);
     }
 
     /**
@@ -124,7 +129,74 @@ class DashboardProfilController extends Controller
      */
     public function update(Request $request, Profil $profil)
     {
-        //
+        $rules = [
+            'gambar_struktur' => 'image|file|max:1024',
+            'fungsi' => 'required',
+            'sejarah' => 'required',
+            'tugas' => 'required',
+            'tujuan' => 'required',
+            'sasaran' => 'required',
+            'nama_kepala_badan' => 'required',
+            'foto_kepala_badan' => 'image|file|max:1024',
+            'nama_kepalabidang_p3e' => 'required',
+            'foto_kepalabidang_p3e' => 'image|file|max:1024',
+            'nama_kepalabidang_p3m' => 'required',
+            'foto_kepalabidang_p3m' => 'image|file|max:1024',
+            'nama_kepalabidang_pp' => 'required',
+            'foto_kepalabidang_pp' => 'image|file|max:1024',
+            'nama_kepalabidang_pesd' => 'required',
+            'foto_kepalabidang_pesd' => 'image|file|max:1024',
+            'nama_kepalabidang_pik' => 'required',
+            'foto_kepalabidang_pik' => 'image|file|max:1024'
+        ];
+
+        if ($request->periode != $profil->periode) {
+            $rules['periode'] = 'required|max:255|unique:profils';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->file('gambar_struktur')) {
+            $oldImage = $profil->gambar_struktur; // Ambil old image dari profil
+                if ($oldImage) {
+                    Storage::delete($oldImage);
+                }
+                $validatedData['gambar_struktur'] = $request->file('gambar_struktur')->store('gambar-profil');
+        }
+
+        $officialFiles = [
+            'foto_kepala_badan',
+            'foto_kepalabidang_p3e',
+            'foto_kepalabidang_p3m',
+            'foto_kepalabidang_pp',
+            'foto_kepalabidang_pesd',
+            'foto_kepalabidang_pik'
+        ];
+    
+        foreach ($officialFiles as $file) {
+            if ($request->file($file)) {
+                $oldImage = $profil->{$file}; // Ambil old image dari profil
+                if ($oldImage) {
+                    Storage::delete($oldImage);
+                }
+                $validatedData[$file] = $request->file($file)->store('gambar-official');
+            }
+        }
+
+        $validatedData['id_user'] = auth()->user()->id;
+
+        $profilData = array_intersect_key($validatedData, array_flip([
+            'periode', 'gambar_struktur', 'fungsi', 'sejarah', 'tugas', 'tujuan', 'sasaran', 'id_officials', 'id_user', 'publish_at'
+        ]));
+        $officialData = array_intersect_key($validatedData, array_flip([
+            'nama_kepala_badan', 'foto_kepala_badan', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',
+            'nama_kepalabidang_pp', 'foto_kepalabidang_pp', 'nama_kepalabidang_pesd', 'foto_kepalabidang_pesd', 'nama_kepalabidang_pik', 'foto_kepalabidang_pik'
+        ]));
+
+        Profil::where('id', $profil->id)->update($profilData);
+        Official::where('id', $profil->id)->update($officialData);
+
+        return redirect('/dashboard/profil')->with('success', 'Profil berhasil diedit!');
     }
 
     /**

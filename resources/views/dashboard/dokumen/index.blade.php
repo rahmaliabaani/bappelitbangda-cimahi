@@ -41,6 +41,7 @@
           </tr>
         </thead>
         <tbody>
+          @if ($dokumen->count())
           @foreach ($dokumen as $dok)
           <tr id="dokumen_ids{{ $dok->id }}">
             <td><input class="form-check-input" type="checkbox" name="ids" value="{{ $dok->id }}"></td>
@@ -51,6 +52,7 @@
             <td><a href="/dashboard/dokumen/{{ $dok->slug }}/edit" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ubah Data"><img src="/img/edit.svg" alt="" width="20px"></a></td>
           </tr>
           @endforeach
+          @endif
         </tbody>
       </table>
     </div>
