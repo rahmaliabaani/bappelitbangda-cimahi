@@ -6,6 +6,7 @@ use App\Models\Galeri;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardGaleriController extends Controller
 {
@@ -16,7 +17,7 @@ class DashboardGaleriController extends Controller
     {
         return view('dashboard.galeri.index', [
             "title" => "Galeri",
-            "galeri" => Galeri::filter()->paginate(5)
+            "galeri" => Galeri::latest()->filter()->paginate(5)
         ]);
     }
 
@@ -28,7 +29,6 @@ class DashboardGaleriController extends Controller
         return view('dashboard.galeri.create', [
             "title" => "Galeri",
             "kategori" => ['Foto', 'Vidio'],
-            "selectedKategori" => $request->input('kategori', '')
         ]);
     }
 
@@ -70,9 +70,13 @@ class DashboardGaleriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Galeri $galeri)
+    public function edit(Galeri $galeri, Request $request)
     {
-        //
+        return view('dashboard.galeri.update', [
+            "title" => "Galeri",
+            "kategori" => ['Foto', 'Vidio'],
+            "galeris" => $galeri,
+        ]);
     }
 
     /**
@@ -80,14 +84,62 @@ class DashboardGaleriController extends Controller
      */
     public function update(Request $request, Galeri $galeri)
     {
-        //
+        $rules = [
+            'kategori' => 'required',
+            'gambar' => 'image|file|max:1024',
+            'link_vidio' => 'url'
+        ];
+
+        if ($request->nama != $galeri->nama) {
+            $rules['nama'] = 'required|unique:galeris';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->file('gambar')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['gambar'] = $request->file('gambar')->store('galeri');
+        }
+
+        $validatedData['slug'] = Str::slug($request->nama);
+
+        $validatedData['id_user'] = auth()->user()->id;
+
+        Galeri::where('id', $galeri->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/galeri')->with('success', 'Galeri berhasil diedit!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Galeri $galeri)
+    public function destroy(Request $request)
     {
-        //
+        $ids = $request->input('ids');
+
+        if (count($ids) > 1) {
+            foreach ($ids as $id) {
+                $info = Galeri::findOrFail($id);
+
+                // Hapus file gambar dari storage
+                if (Storage::exists($info->gambar)) {
+                    Storage::delete($info->gambar);
+                }
+
+                // Hapus data dari database
+                $info->delete();
+            }
+        } else {
+            $id = $ids[0];
+            $info = Galeri::findOrFail($id);
+
+            // Hapus data dari database
+            $info->delete();
+        }
+        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
+        return response()->json(["success" => "Foto/Vidio berhasil dihapus!"]);
     }
 }

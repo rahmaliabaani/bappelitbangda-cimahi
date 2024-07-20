@@ -21,40 +21,20 @@
       </div>
     </div>
     <div class="row">
+      @foreach ($galeri as $vidio)
       <div class="col-md-3">
         <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+          <iframe src="{{ $vidio->link_vidio }}" title="YouTube video" allowfullscreen></iframe>
         </div>
+        <figcaption class="figure-caption pt-1">{{ $vidio->nama }}</figcaption>
       </div>
-      <div class="col-md-3">
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
-        </div>
-      </div>
+      @endforeach
     </div>
-    <div class="row">
-      <div class="col-md-12 mt-5">
-        <nav aria-label="Page navigation example" class="float-end">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
-      </div>
+    
+    <div class="d-flex justify-content-end">
+      {{ $galeri->links() }}
     </div>
+
   </div>
 </section> 
 @endsection

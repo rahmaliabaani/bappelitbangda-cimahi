@@ -18,7 +18,7 @@ class DashboardProfilController extends Controller
     {
         return view('dashboard.profil.index', [
             "title" => "Profil",
-            "profil" => Profil::all(),
+            "profil" => Profil::latest()->filter()->get(),
             "official" => Official::all()
         ]);
     }
@@ -49,17 +49,17 @@ class DashboardProfilController extends Controller
             'tujuan' => 'required',
             'sasaran' => 'required',
             'nama_kepala_badan' => 'required',
-            'foto_kepala_badan' => 'required|image|file|max:1024',
+            'foto_kepala_badan' => 'image|file|max:1024',
             'nama_kepalabidang_p3e' => 'required',
-            'foto_kepalabidang_p3e' => 'required|image|file|max:1024',
+            'foto_kepalabidang_p3e' => 'image|file|max:1024',
             'nama_kepalabidang_p3m' => 'required',
-            'foto_kepalabidang_p3m' => 'required|image|file|max:1024',
+            'foto_kepalabidang_p3m' => 'image|file|max:1024',
             'nama_kepalabidang_pp' => 'required',
-            'foto_kepalabidang_pp' => 'required|image|file|max:1024',
+            'foto_kepalabidang_pp' => 'image|file|max:1024',
             'nama_kepalabidang_pesd' => 'required',
-            'foto_kepalabidang_pesd' => 'required|image|file|max:1024',
+            'foto_kepalabidang_pesd' => 'image|file|max:1024',
             'nama_kepalabidang_pik' => 'required',
-            'foto_kepalabidang_pik' => 'required|image|file|max:1024'
+            'foto_kepalabidang_pik' => 'image|file|max:1024'
         ]);
     
         // Menyimpan file gambar struktur
@@ -197,6 +197,23 @@ class DashboardProfilController extends Controller
         Official::where('id', $profil->id)->update($officialData);
 
         return redirect('/dashboard/profil')->with('success', 'Profil berhasil diedit!');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $isActive = $request->input('is_active') == 'true' ? 1 : 0;
+
+        // Nonaktifkan semua profil jika mengaktifkan yang baru
+        if ($isActive) {
+            Profil::where('is_active', true)->update(['is_active' => false]);
+        }
+
+        $profil = Profil::findOrFail($id);
+        $profil->is_active = $isActive;
+        $profil->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**

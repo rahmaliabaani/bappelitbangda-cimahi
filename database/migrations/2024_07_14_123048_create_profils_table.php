@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_officials');
             $table->foreignId('id_user');
-            // $table->boolean('is_active')->default(false);
-            $table->integer('periode')->unique();
-            $table->string('tujuan');
+            $table->boolean('is_active')->default(false);
+            $table->year('periode')->unique();
+            $table->text('tujuan');
             $table->text('sasaran');
-            $table->string('tugas');
+            $table->text('tugas');
             $table->text('fungsi');
             $table->text('sejarah');
             $table->string('gambar_struktur');

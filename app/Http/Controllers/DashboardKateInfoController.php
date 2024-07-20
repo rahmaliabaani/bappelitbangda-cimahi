@@ -17,7 +17,7 @@ class DashboardKateInfoController extends Controller
     {
         return view('dashboard.kategori-informasi.index', [
             "title" => "KategoriInformasi",
-            "katinformasi" => KategoriInformasi::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
+            "katinformasi" => KategoriInformasi::latest()->filter()->paginate(5)->withQueryString(),
         ]);
     }
 
@@ -68,12 +68,11 @@ class DashboardKateInfoController extends Controller
      */
     public function update(Request $request, KategoriInformasi $kategoriInformasi)
     {
-        
         if ($request->nama != $kategoriInformasi->nama) {
             $rules['nama'] = 'required|unique:kategori_informasis';
         }
 
-        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
         $validatedData['slug'] = Str::slug($request->nama);
 

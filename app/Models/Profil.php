@@ -17,8 +17,7 @@ class Profil extends Model
     public function scopeFilter(Builder $query) : void
     {
         // Pencarian: ketika inputan cari kosong maka pencarian berhenti, tapi jika ada inputan maka menjalankan perintah function yaitu ambil querynya dan ambil nilai input carinya
-        $query->where('judul', 'like', '%' . request('cari') . '%')
-                ->orWhere('deskripsi', 'like', '%' . request('cari') . '%');
+        $query->where('periode', 'like', '%' . request('cari') . '%');
     }
 
     public function user()

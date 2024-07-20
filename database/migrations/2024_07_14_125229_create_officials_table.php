@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('officials', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kepala_badan');
-            $table->string('foto_kepala_badan');
+            $table->string('foto_kepala_badan')->nullable();
             $table->string('nama_kepalabidang_p3e');
-            $table->string('foto_kepalabidang_p3e');
+            $table->string('foto_kepalabidang_p3e')->nullable();
             $table->string('nama_kepalabidang_p3m');
-            $table->string('foto_kepalabidang_p3m');
+            $table->string('foto_kepalabidang_p3m')->nullable();
             $table->string('nama_kepalabidang_pp');
-            $table->string('foto_kepalabidang_pp');
+            $table->string('foto_kepalabidang_pp')->nullable();
             $table->string('nama_kepalabidang_pesd');
-            $table->string('foto_kepalabidang_pesd');
+            $table->string('foto_kepalabidang_pesd')->nullable();
             $table->string('nama_kepalabidang_pik');
-            $table->string('foto_kepalabidang_pik');
+            $table->string('foto_kepalabidang_pik')->nullable();
             $table->timestamps();
         });
     }

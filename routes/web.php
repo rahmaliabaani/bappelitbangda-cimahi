@@ -1,21 +1,23 @@
 <?php
 
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\DashboardBeritaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardDokumenController;
-use App\Http\Controllers\DashboardGaleriController;
-use App\Http\Controllers\DashboardInformasiController;
-use App\Http\Controllers\DashboardKateBeritaController;
-use App\Http\Controllers\DashboardKateInfoController;
-use App\Http\Controllers\DashboardProfilController;
-use App\Http\Controllers\DokumenController;
-use App\Http\Controllers\InformasiController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\StafController;
 use App\Models\Galeri;
 use App\Models\Profil;
+use App\Models\Official;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StafController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\DashboardBeritaController;
+use App\Http\Controllers\DashboardGaleriController;
+use App\Http\Controllers\DashboardProfilController;
+use App\Http\Controllers\DashboardDokumenController;
+use App\Http\Controllers\DashboardKateInfoController;
+use App\Http\Controllers\DashboardInformasiController;
+use App\Http\Controllers\DashboardKateBeritaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,16 +48,14 @@ Route::get('/berita', [BeritaController::class, 'index']);
 
 Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
 
-Route::get('/profil', function () {
-    return view('profil', ["title" => "Profil"]);
-});
+Route::get('/profil', [ProfilController::class, 'index']);
 
 Route::get('/foto', function () {
-    return view('foto', ["title" => "Galeri"]);
+    return view('foto', ["title" => "Galeri", "galeri" => Galeri::latest()->where('kategori', 'Foto')->filter()->paginate(10)]);
 });
 
 Route::get('/vidio', function () {
-    return view('vidio', ["title" => "Galeri"]);
+    return view('vidio', ["title" => "Galeri", "galeri" => Galeri::latest()->where('kategori', 'Vidio')->filter()->paginate(10)]);
 });
 
 // user yang blm terotentikasi = guest(tamu yg blm daftar)
@@ -87,6 +87,8 @@ Route::get('dashboard/dokumen/{dokumen:slug}/edit', [DashboardDokumenController:
 Route::put('dashboard/dokumen/{dokumen:slug}', [DashboardDokumenController::class, 'update'])->middleware('auth')->name('dokumen.update');
 
 Route::resource('/dashboard/dokumen', DashboardDokumenController::class)->middleware('auth');
+
+Route::post('/dashboard/profil/updateStatus', [DashboardProfilController::class, 'updateStatus'])->name('profil.updateStatus');
 
 Route::resource('/dashboard/profil', DashboardProfilController::class)->middleware('auth');
 

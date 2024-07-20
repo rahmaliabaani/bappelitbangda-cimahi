@@ -15,7 +15,7 @@ class DashboardKateBeritaController extends Controller
     {
         return view('dashboard.kategori-berita.index', [
             "title" => "KategoriBerita",
-            "katberita" => KategoriBerita::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString()
+            "katberita" => KategoriBerita::latest()->filter()->paginate(5)->withQueryString()
         ]);
     }
 
@@ -67,13 +67,11 @@ class DashboardKateBeritaController extends Controller
      */
     public function update(Request $request, KategoriBerita $kategoriBerita)
     {
-
-        // return $request;
         if ($request->nama != $kategoriBerita->nama) {
             $rules['nama'] = 'required|unique:kategori_beritas';
         }
         
-        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
         $validatedData['slug'] = Str::slug($request->nama);
 

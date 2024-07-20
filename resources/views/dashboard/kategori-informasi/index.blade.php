@@ -105,7 +105,7 @@
           </div>
           <div class="modal-body">
           <form action="{{ route('kategori-informasi.update', $katinfo->slug) }}" method="POST">
-            @method('patch')
+            @method('put')
             @csrf
             <div class="row">
               <div class="col-md-10">

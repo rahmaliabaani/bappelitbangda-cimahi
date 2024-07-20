@@ -83,7 +83,7 @@ $("#select-all").click(function(e){
     }else{
       if(confirm("Yakin akan menghapus?")){
         $.ajax({
-          url:"/dashboard/dokumen/destroy",
+          url:"/dashboard/galeri/destroy",
           type:"DELETE",
           data:{
             ids:all_ids,
@@ -91,7 +91,7 @@ $("#select-all").click(function(e){
           },
           success:function(response){
             $.each(all_ids, function(key,val){
-              $('#dokumen_ids'+val).remove();
+              $('#galeri_ids'+val).remove();
             })
           }
         });
