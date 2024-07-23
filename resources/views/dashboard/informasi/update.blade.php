@@ -46,8 +46,6 @@
               <input type="hidden" name="oldImage" value="{{ $informasi->gambar }}">
               @if ($informasi->gambar)
                 <img src="{{ asset('storage/' . $informasi->gambar) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
-              @else
-                <img src="" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
               @endif
               <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file">
               @error('gambar')
@@ -70,7 +68,7 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
         <button type="button" class="btn btn-danger"><a href="/dashboard/informasi" class="text-decoration-none text-white">Batal</a></button>
       </form>
     </div>

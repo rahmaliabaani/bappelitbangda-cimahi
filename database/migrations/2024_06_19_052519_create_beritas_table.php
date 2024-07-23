@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_user');
-            $table->foreignId('id_kategori_berita');
+            $table->foreignId('id_kategori_berita')->constrained(table: 'kategori_beritas', indexName: 'id_beritas')->onDelete('restrict');
             $table->string('judul');
             $table->string('slug')->unique();
             $table->string('gambar')->nullable();

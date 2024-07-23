@@ -65,22 +65,30 @@ class DashboardKateBeritaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KategoriBerita $kategoriBerita)
+    public function update(Request $request, $slug)
     {
+        $kategoriBerita = KategoriBerita::where('slug', $slug)->firstOrFail();
+
+        $rules = [
+            'nama' => 'required'
+        ];
+
+        // Jika nama diubah, periksa unik
         if ($request->nama != $kategoriBerita->nama) {
             $rules['nama'] = 'required|unique:kategori_beritas';
         }
-        
+
+        // Validasi data
         $validatedData = $request->validate($rules);
 
+        // Perbarui data
         $validatedData['slug'] = Str::slug($request->nama);
-
         $validatedData['id_user'] = auth()->user()->id;
-        
-        KategoriBerita::where('id', $kategoriBerita->id)
-        ->update($validatedData);
 
-        // return $request;
+        KategoriBerita::where('id', $kategoriBerita->id)
+            ->update($validatedData);
+
+        // Redirect dengan pesan sukses
         return redirect('/dashboard/kategori-berita')->with('success', 'Kategori Berita berhasil diubah!');
     }
 
@@ -90,7 +98,6 @@ class DashboardKateBeritaController extends Controller
     public function destroy(Request $request)
     {
         KategoriBerita::whereIn('id',$request->ids)->delete();
-        // KategoriInformasi::destroy('id',$kategoriInformasi->ids);
-        return response()->json(["success" => "Kategori Berita berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Kategori Berita berhasil dihapus!']);
     }
 }

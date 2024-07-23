@@ -60,7 +60,7 @@
     </div>
 
     @if (session()->has('success'))
-      <div class="alert alert-success col-md-6" role="alert">
+      <div class="alert alert-success col-md-6" role="alert" id="alert-container">
         {{ session('success') }}
       </div>
     @endif
@@ -105,7 +105,7 @@
           </div>
           <div class="modal-body">
           <form action="{{ route('kategori-berita.update', $katbrt->slug) }}" method="POST">
-            @method('patch')
+            @method('PUT')
             @csrf
             <div class="row">
               <div class="col-md-10">
@@ -163,9 +163,14 @@
             _token:'{{ csrf_token() }}'
           },
           success:function(response){
-            $.each(all_ids, function(key,val){
-              $('#katberita_ids'+val).remove();
-            })
+            if(response.success) {
+              $('#alert-container').removeClass('alert-danger').addClass('alert-success');
+              $('#alert-container').html(response.message);
+              $('#alert-container').show();
+              $.each(all_ids, function(key, val) {
+                $('#katberita_ids' + val).remove();
+              });
+            }
           }
         });
       }

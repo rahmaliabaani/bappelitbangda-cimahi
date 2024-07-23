@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="row">
-      @foreach ($galeri as $foto)
+      @foreach ($galeriFoto as $foto)
       <div class="col-md-3">
       <figure class="figure">
           <img src="{{ asset('storage/' . $foto->gambar) }}" class="figure-img img-fluid rounded" alt="...">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="d-flex justify-content-end">
-      {{ $galeri->links() }}
+      {{ $galeriFoto->links() }}
     </div>
   </div>
 </section>

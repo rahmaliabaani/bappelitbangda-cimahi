@@ -102,9 +102,9 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabad" class="form-label" style="margin-bottom: -1px;">Foto Kepala Badan</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
-              <input class="form-control mt-2 form-control-sm @error('foto_kabad') is-invalid @enderror" id="foto_kabad" name="foto_kepala_badan" type="file">
+            <label for="gambar-official" class="form-label" style="margin-bottom: -1px;">Foto Kepala Badan</label>
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
+              <input class="form-control mt-2 form-control-sm @error('foto_kabad') is-invalid @enderror" id="gambar-official" name="foto_kepala_badan" type="file">
               @error('foto_kabad')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -121,9 +121,9 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabid_p3m" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3M</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
-              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3m') is-invalid @enderror" id="foto_kabid_p3m" name="foto_kepalabidang_p3m" type="file">
+            <label for="gambar" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3M</label>
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
+              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3m') is-invalid @enderror" id="gambar" name="foto_kepalabidang_p3m" type="file">
               @error('foto_kabid_p3m')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -141,7 +141,7 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pesd" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PESD</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pesd') is-invalid @enderror" id="foto_kabid_pesd" name="foto_kepalabidang_pesd" type="file">
               @error('foto_kabid_pesd')
                 <div class="invalid-feedback">
@@ -162,7 +162,7 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
               @error('foto_kabid_p3e')
                 <div class="invalid-feedback">
@@ -181,7 +181,7 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PP</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pp') is-invalid @enderror" id="foto_kabid_pp" name="foto_kepalabidang_pp" type="file">
               @error('foto_kabid_pp')
                 <div class="invalid-feedback">
@@ -200,7 +200,7 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pik" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PIK</label>
-              <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block">
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pik') is-invalid @enderror" id="foto_kabid_pik" name="foto_kepalabidang_pik" type="file">
               @error('foto_kabid_pik')
                 <div class="invalid-feedback">
@@ -219,6 +219,22 @@
 
 <script>
 $("#gambar").change(function () {
+    previewImage(this);
+  });
+
+  function previewImage(input) {
+    if(input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img-preview').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
+  $("#gambar-official").change(function () {
     previewImage(this);
   });
 

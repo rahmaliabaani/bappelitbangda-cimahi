@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use App\Models\Dokumen;
 use App\Models\Informasi;
-use Illuminate\Http\Request;
 use App\Models\KategoriBerita;
 use App\Models\KategoriInformasi;
-use League\CommonMark\Node\Block\Document;
 
 class DashboardController extends Controller
 {

@@ -12,7 +12,7 @@
             <h3 class="text-white text-center">Mewujudkan Cimahi Baru, Maju, Agamis, dan Berbudaya.</h3>
           </div>
           <div class="col-lg-6">
-            <img src="img/beranda.jpg" style="width: 37rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
+            <img src="img/selamat-datang.jpg" style="width: 37rem; height: 23rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
           </div>
         </div>
       </swiper-slide>
@@ -23,7 +23,7 @@
             <h3 class="text-white text-center">Badan Perencanaan, Pembangunan, Penelitian, dan Pengembangan Daerah.</h3>
           </div>
           <div class="col-lg-6">
-            <img src="img/2.jpg" style="width: 37rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
+            <img src="img/gedung-pemkot.svg" style="width: 37rem; height: 23rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
           </div>
         </div>
       </swiper-slide>
@@ -34,7 +34,7 @@
             <h3 class="text-white text-center">Meningkatkan Keselarasan, Keseimbangan, dan Kesinambungan Pembangunan di Daerah.</h3>
           </div>
           <div class="col-lg-6">
-            <img src="img/3.jpg" style="width: 37rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
+            <img src="img/cimahi.webp" style="width: 37rem; height: 23rem; padding: 10px; background-color: #EC6E13;" alt="" class="shadow">
           </div>
         </div>
       </swiper-slide>
@@ -51,92 +51,30 @@
       </div>
     </div>
     <div class="row">
+      @foreach ($informasi as $info)
       <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/beranda.jpg" class="card-img-top" alt="...">
+        <div class="card" style="border: none;">
+          <div class="position-absolute px-3 py-2 text-white" style="background-color: #FF8E26;">{{ $info->KategoriInformasi->nama }}</div>
+          @if ($info->gambar)
+            <img src="{{ asset('storage/' . $info->gambar) }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
+          @else
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
+          @endif
           <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pelajar SMP Se-Kota Cimahi Ikuti Festival Social Studies.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
+            <p class="card-text text-secondary">{{ $info->publish_at->format('d F Y H:i') }}</p>
+            <a href="/berita/{{ $info->slug }}" class="text-decoration-none fs-5">{{ $info->judul }}</a>
+            <p class="card-text text-truncate">
+                {{ strip_tags($info->deskripsi) }}
+            </p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pemkot Cimahi Bakal Terbitkan SPPT PBB Hybrid.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Disdukcapil Kota Cimahi Kebut Perekaman dan Pembuatan KTP.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/beranda.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pelajar SMP Se-Kota Cimahi Ikuti Festival Social Studies.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
+      @endforeach
     </div>
-    <div class="row">
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/beranda.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Disdukcapil Kota Cimahi Kebut Perekaman dan Pembuatan KTP.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pemkot Cimahi Bakal Terbitkan SPPT PBB Hybrid.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pelajar SMP Se-Kota Cimahi Ikuti Festival Social Studies.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
-          <img src="img/beranda.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text text-secondary">08 Agustus 2023 11.11</p>
-            <a href="/" class="text-decoration-none fs-5">Pemkot Cimahi Bakal Terbitkan SPPT PBB Hybrid.</a>
-            <p class="card-text">Lorem ipsum dolor, sit amet consectet...</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
     <div class="row">
       <div class="col-md-12 mt-4">
-        <a href="/informasi" class="btn btn-light fs-5 float-end shadow">Selengkapnya <img src="img/panah-oren.png" width="25px"></a>
+        <a href="/informasi" class="btn btn-light fs-6 float-end shadow">Selengkapnya <img src="img/panah-oren.png" width="20px"></a>
       </div>
     </div>
   </div>
@@ -149,9 +87,9 @@
       <div class="col-md-10 text-white">
         <img src="img/bappelitbangda-logo.png" alt="" width="50px">
         <h2 class="my-3">BAPPELITBANGDA</h2>
-        <p class="fs-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo laboriosam ducimus aut explicabo. Odio aperiam neque praesentium illum magnam reprehenderit? Cupiditate, dolores laborum ipsum possimus esse fugit sapiente totam iusto corrupti, corporis impedit ullam qui nesciunt, laboriosam quis minima hic nam distinctio vel? Consequuntur similique quasi consectetur impedit tempore velit?
+        <p class="fs-4">Badan Perencanaan Pembangunan, Penelitian, dan Pengembangan Daerah merupakan salah satu badan penunjang Urusan Pemerintahan di bidang perencanaan, penelitian dan pengembangan yang menjadi kewenangan Daerah Kota. Bappelitbangda adalah badan yang melakukan perumusan dan pelaksanaan mengenai penyelenggaraan urusan pemerintahan, kebijakan, pembinaan, pengedalian, serta administrasi dalam urusan pemerintahan, bidang perencanaan pembangunan, penelitian dan pengembangan.
         </p>
-        <button type="button" class="btn btn-light"><a href="/dokumen" class="text-decoration-none">Selengkapnya</a></button>
+        <button type="button" class="btn btn-light"><a href="/profil" class="text-decoration-none">Selengkapnya</a></button>
       </div>
     </div>
   </div>
@@ -167,30 +105,30 @@
     </div>
     <div class="row mt-4">
       <div class="col-lg-3 pb-3">
-        <div class="card shadow" style="width: 19rem; height: 8rem;">
-          <div class="card-body text-center">
-            <a href="#"><img src="img/logocimahi.png" alt="" style="margin-top: 0.3rem;"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 pb-3 ">
-        <div class="card shadow" style="width: 19rem; height: 8rem;">
-          <div class="card-body text-center">
-            <a href="#"><img src="img/pemprov.png" alt="" class="w-100" style="margin-top: -1.2rem;"></a>
+        <div class="card shadow" style="height: 8rem;">
+          <div class="card-body">
+            <img src="img/logocimahi.png" alt="" class="col-lg-8 m-auto mt-2 d-flex justify-content-center">
           </div>
         </div>
       </div>
       <div class="col-lg-3 pb-3">
-        <div class="card shadow" style="width: 19rem; height: 8rem;">
-          <div class="card-body text-center">
-            <a href="#"><img src="img/diskominfo.png" alt="" class="mt-1 w-100"></a>
+        <div class="card shadow" style="height: 8rem;">
+          <div class="card-body">
+            <img src="img/pemprov.png" alt="" class="col-lg-9 m-auto d-flex justify-content-center">
           </div>
         </div>
       </div>
       <div class="col-lg-3 pb-3">
-        <div class="card shadow" style="width: 19rem; height: 8rem;">
-          <div class="card-body text-center">
-            <a href="#"><img src="img/bps-cimahi.png" alt="" class="mt-2 w-100"></a>
+        <div class="card shadow" style="height: 8rem;">
+          <div class="card-body">
+            <img src="img/diskominfo.png" alt="" class="col-lg-11 m-auto mt-2 d-flex justify-content-center">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 pb-3">
+        <div class="card shadow" style="height: 8rem;">
+          <div class="card-body">
+            <img src="img/bps-cimahi.png" alt="" class="col-lg-12 m-auto mt-2 d-flex justify-content-center">
           </div>
         </div>
       </div>

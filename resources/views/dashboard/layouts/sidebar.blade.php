@@ -3,6 +3,7 @@
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #0D6EFD;">
         <div class="position-sticky pt-3 sidebar-sticky">
           <div class="container">
+            @can('staf')
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link fs-6 {{ ($title === 'Dashboard') ? 'active' : '' }}" href="/dashboard">
@@ -53,10 +54,11 @@
                 </a>
               </li>
             </ul>
+            @endcan
 
-            {{-- @can('admin') --}}
+            @can('admin')
             <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span class="text-white">Administrator</span>
+              <span class="text-white text-uppercase">Administrator</span>
             </h5>
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -65,7 +67,7 @@
                 </a>
               </li>
             </ul>
-          {{-- @endcan --}}
+          @endcan
           </div>
         </div>
       </nav>

@@ -100,6 +100,6 @@ class StafController extends Controller
     {
         $ids = $request->input('ids');
         User::whereIn('id', $ids)->delete();
-        return response()->json(["success" => "Staf berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Staf berhasil dihapus!']);
     }
 }

@@ -12,7 +12,6 @@ class ProfilController extends Controller
         return view('profil', [
             "title" => "Profil", 
             "profils" => Profil::where('is_active', true)->get(),
-            // "officials" => Official::join(Profil::where('is_active', true))->get()
         ]);
     }
 }

@@ -60,7 +60,7 @@
     </div>
 
     @if (session()->has('success'))
-      <div class="alert alert-success col-md-6" role="alert">
+      <div class="alert alert-success col-md-6" role="alert" id="alert-container">
         {{ session('success') }}
       </div>
     @endif
@@ -162,11 +162,20 @@
             ids:all_ids,
             _token:'{{ csrf_token() }}'
           },
-          success:function(response){
-            $.each(all_ids, function(key,val){
-              $('#katinformasi_ids'+val).remove();
-            })
-          }
+          success: function(response) {
+            if(response.success) {
+              $('#alert-container').removeClass('alert-danger').addClass('alert-success');
+              $('#alert-container').html(response.message);
+              $('#alert-container').show();
+              $.each(all_ids, function(key, val) {
+                $('#katinformasi_ids' + val).remove();
+              });
+            } else {
+              $('#alert-container').removeClass('alert-success').addClass('alert-danger');
+              $('#alert-container').html(response.message);
+              $('#alert-container').show();
+            }
+          },
         });
       }
     }

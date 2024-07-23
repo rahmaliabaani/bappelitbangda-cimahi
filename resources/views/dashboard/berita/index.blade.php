@@ -23,7 +23,7 @@
     </div>
 
     @if (session()->has('success'))
-      <div class="alert alert-success col-md-6" role="alert">
+      <div class="alert alert-success col-md-6" role="alert" id="alert-container">
         {{ session('success') }}
       </div>
     @endif
@@ -90,9 +90,14 @@ $("#select-all").click(function(e){
           _token:'{{ csrf_token() }}'
         },
         success:function(response){
-          $.each(all_ids, function(key,val){
-            $('#berita_ids'+val).remove();
-          })
+          if(response.success) {
+            $('#alert-container').removeClass('alert-danger').addClass('alert-success');
+            $('#alert-container').html(response.message);
+            $('#alert-container').show();
+            $.each(all_ids, function(key, val) {
+              $('#berita_ids' + val).remove();
+            });
+          }
         }
       });
       }

@@ -90,7 +90,6 @@ class DashboardKateInfoController extends Controller
     public function destroy(Request $request)
     {
         KategoriInformasi::whereIn('id',$request->ids)->delete();
-        // KategoriInformasi::destroy('id',$kategoriInformasi->ids);
-        return response()->json(["success" => "Kategori Informasi berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Kategori Informasi berhasil dihapus!']);
     }
 }

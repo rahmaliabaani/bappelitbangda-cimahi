@@ -21,7 +21,6 @@ class DashboardInformasiController extends Controller
         return view('dashboard.informasi.index', [
             "title" => "Informasi",
             "informasi" => Informasi::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
-            // "info" => Informasi::all()
 
         ]);
     }
@@ -124,32 +123,22 @@ class DashboardInformasiController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('ids');
-
-        if (count($ids) > 1) {
+        if ($ids) {
             foreach ($ids as $id) {
-                $info = Informasi::findOrFail($id);
+                // Temukan item berdasarkan ID
+                $item = Informasi::find($id);
 
-                // Hapus file gambar dari storage
-                if (Storage::exists($info->gambar)) {
-                    Storage::delete($info->gambar);
+                if ($item) {
+                    // Hapus file gambar jika ada
+                    if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
+                        Storage::disk('public')->delete($item->gambar);
+                    }
+
+                    // Hapus item dari database
+                    $item->delete();
                 }
-
-                // Hapus data dari database
-                $info->delete();
             }
-        } else {
-            $id = $ids[0];
-            $info = Informasi::findOrFail($id);
-
-            // Hapus file gambar dari storage
-            if (Storage::exists($info->gambar)) {
-                Storage::delete($info->gambar);
-            }
-
-            // Hapus data dari database
-            $info->delete();
         }
-        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
-        return response()->json(["success" => "Informasi berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Informasi berhasil dihapus!']);
     }
 }

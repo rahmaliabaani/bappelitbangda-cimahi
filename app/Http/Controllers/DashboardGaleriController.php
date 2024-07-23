@@ -110,7 +110,7 @@ class DashboardGaleriController extends Controller
         Galeri::where('id', $galeri->id)
             ->update($validatedData);
 
-        return redirect('/dashboard/galeri')->with('success', 'Galeri berhasil diedit!');
+        return redirect('/dashboard/galeri')->with('success', 'Foto/Vidio berhasil diedit!');
     }
 
     /**
@@ -136,10 +136,13 @@ class DashboardGaleriController extends Controller
             $id = $ids[0];
             $info = Galeri::findOrFail($id);
 
+            if (Storage::exists($info->gambar)) {
+                Storage::delete($info->gambar);
+            }
+
             // Hapus data dari database
             $info->delete();
         }
-        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
-        return response()->json(["success" => "Foto/Vidio berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Foto/Vidio berhasil dihapus!']);
     }
 }

@@ -22,10 +22,14 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials) && auth()->user()->is_admin == 0) {
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
+        } elseif (Auth::attempt($credentials) && auth()->user()->is_admin == 1) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('admin/staf');
         }
 
         return back()->with('loginError', 'Gagal masuk');

@@ -46,8 +46,6 @@
               <input type="hidden" name="oldImage" value="{{ $berita->gambar }}">
               @if ($berita->gambar)
                 <img src="{{ asset('storage/' . $berita->gambar) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
-              @else
-                <img src="/img/gambar-default(1).jpg" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
               @endif
               <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file">
               @error('gambar')

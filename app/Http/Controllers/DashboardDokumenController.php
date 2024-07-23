@@ -119,32 +119,22 @@ class DashboardDokumenController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('ids');
-
-        if (count($ids) > 1) {
+        if ($ids) {
             foreach ($ids as $id) {
-                $dok = Dokumen::findOrFail($id);
+                // Temukan item berdasarkan ID
+                $item = Dokumen::find($id);
 
-                // Hapus file dari storage
-                if (Storage::exists($dok->dokumen)) {
-                    Storage::delete($dok->dokumen);
+                if ($item) {
+                    // Hapus file gambar jika ada
+                    if ($item->dokumen && Storage::disk('public')->exists($item->dokumen)) {
+                        Storage::disk('public')->delete($item->dokumen);
+                    }
+
+                    // Hapus item dari database
+                    $item->delete();
                 }
-
-                // Hapus data dari database
-                $dok->delete();
             }
-        } else {
-            $id = $ids[0];
-            $dok = Dokumen::findOrFail($id);
-
-            // Hapus file gambar dari storage
-            if (Storage::exists($dok->dokumen)) {
-                Storage::delete($dok->dokumen);
-            }
-
-            // Hapus data dari database
-            $dok->delete();
         }
-        // return redirect()->route('/dashboard/dokumen')->with('success', 'Dokumen berhasil dihapus!');
-        return response()->json(["success" => "Dokumen berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Dokumen berhasil dihapus!']);
     }
 }

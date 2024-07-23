@@ -25,11 +25,10 @@
       @if ($informasi->count())
       @foreach ($informasi as $info)
       <div class="col-lg-3 pb-3">
-        <div class="card" style="width: 19rem; border: none;">
+        <div class="card" style="border: none;">
           <div class="position-absolute px-3 py-2 text-white" style="background-color: #FF8E26;">{{ $info->kategoriInformasi->nama }}</div>
           @if ($info->gambar)
             <img src="{{ asset('storage/' . $info->gambar) }}" alt="{{ $info->kategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
-            {{-- <img src="{{ route('gambar.displayImage' , $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3"> --}}
           @else
             <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $info->kategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
           @endif

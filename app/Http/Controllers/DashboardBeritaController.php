@@ -19,7 +19,6 @@ class DashboardBeritaController extends Controller
         return view('dashboard.berita.index', [
             "title" => "Berita",
             "berita" => Berita::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
-            // "brt" => Berita::all()
         ]);
     }
 
@@ -118,32 +117,22 @@ class DashboardBeritaController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('ids');
-
-        if (count($ids) > 1) {
+        if ($ids) {
             foreach ($ids as $id) {
-                $brt = Berita::findOrFail($id);
+                // Temukan item berdasarkan ID
+                $item = Berita::find($id);
 
-                // Hapus file gambar dari storage
-                if (Storage::exists($brt->gambar)) {
-                    Storage::delete($brt->gambar);
+                if ($item) {
+                    // Hapus file gambar jika ada
+                    if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
+                        Storage::disk('public')->delete($item->gambar);
+                    }
+
+                    // Hapus item dari database
+                    $item->delete();
                 }
-
-                // Hapus data dari database
-                $brt->delete();
             }
-        } else {
-            $id = $ids[0];
-            $brt = Berita::findOrFail($id);
-
-            // Hapus file gambar dari storage
-            if (Storage::exists($brt->gambar)) {
-                Storage::delete($brt->gambar);
-            }
-
-            // Hapus data dari database
-            $brt->delete();
         }
-        // return redirect()->route('/dashboard/informasi')->with('success', 'Informasi berhasil dihapus!');
-        return response()->json(["success" => "Informasi berhasil dihapus!"]);
+        return response()->json(['success' => true, 'message' => 'Berita berhasil dihapus!']);
     }
 }

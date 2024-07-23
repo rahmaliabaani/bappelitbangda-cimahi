@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="row">
-      @foreach ($galeri as $vidio)
+      @foreach ($galeriVidio as $vidio)
       <div class="col-md-3">
         <div class="ratio ratio-16x9">
           <iframe src="{{ $vidio->link_vidio }}" title="YouTube video" allowfullscreen></iframe>
@@ -32,7 +32,7 @@
     </div>
     
     <div class="d-flex justify-content-end">
-      {{ $galeri->links() }}
+      {{ $galeriVidio->links() }}
     </div>
 
   </div>

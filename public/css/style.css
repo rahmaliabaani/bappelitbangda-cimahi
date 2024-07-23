@@ -91,7 +91,7 @@ footer p {
 .kontak {
     background-color: #0D6EFD;
     width: 100%;
-    padding-top: 2rem;
+    /* padding-top: -5rem; */
     padding-bottom: 8rem;
 }
 

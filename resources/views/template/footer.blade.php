@@ -1,9 +1,9 @@
 <!-- Footer -->
-<footer>
+<footer class="py-4">
     <div class="container">
-      <div class="row p-2">
+      <div class="row">
         <div class="col-sm-12">
-          <p class="text-center pt-3">Copyright @Bappelitbangda Kota Cimahi 2023</p>
+          <p class="m-auto d-flex justify-content-center">Copyright @Bappelitbangda Kota Cimahi 2023</p>
         </div>
       </div>
     </div>
