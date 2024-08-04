@@ -16,7 +16,6 @@ class Dokumen extends Model
     public function scopeFilter(Builder $query) : void
     {
         // Pencarian: ketika inputan cari kosong maka pencarian berhenti, tapi jika ada inputan maka menjalankan perintah function yaitu ambil querynya dan ambil nilai input carinya
-        
         $query->where('nama', 'like', '%' . request('cari') . '%')
                 ->orWhere('kategori', 'like', '%' . request('cari') . '%');
     }

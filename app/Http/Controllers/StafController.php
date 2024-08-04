@@ -16,7 +16,7 @@ class StafController extends Controller
     {
         return view('admin.staf.index', [
             "title" => "Admin",
-            "staf" => User::latest()->where('is_admin', 0)->filter()->paginate(3)
+            "staf" => User::latest()->where('is_admin', 0)->filter()->paginate(5)
         ]);
     }
 

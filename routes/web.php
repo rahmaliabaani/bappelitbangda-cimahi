@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardKateInfoController;
 use App\Http\Controllers\DashboardInformasiController;
 use App\Http\Controllers\DashboardKateBeritaController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\HalamanPengunjungController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,23 +30,23 @@ use App\Http\Controllers\GaleriController;
 |
 */
 
-Route::get('/', [BerandaController::class, 'index']);
+Route::get('/', [HalamanPengunjungController::class, 'indexBeranda']);
 
-Route::get('/informasi', [InformasiController::class, 'index']);
+Route::get('/informasi', [HalamanPengunjungController::class, 'indexInformasi']);
 
-Route::get('/informasi/{informasi:slug}', [InformasiController::class, 'show']);
+Route::get('/informasi/{informasi:slug}', [HalamanPengunjungController::class, 'showInformasi']);
 
-Route::get('/dokumen', [DokumenController::class, 'index']);
+Route::get('/dokumen', [HalamanPengunjungController::class, 'indexDokumen']);
 
-Route::get('/berita', [BeritaController::class, 'index']);
+Route::get('/berita', [HalamanPengunjungController::class, 'indexBerita']);
 
-Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
+Route::get('/berita/{berita:slug}', [HalamanPengunjungController::class, 'showBerita']);
 
-Route::get('/profil', [ProfilController::class, 'index']);
+Route::get('/profil', [HalamanPengunjungController::class, 'indexProfil']);
 
-Route::get('/foto', [GaleriController::class, 'index']);
+Route::get('/foto', [HalamanPengunjungController::class, 'indexFoto']);
 
-Route::get('/vidio', [GaleriController::class, 'index']);
+Route::get('/vidio', [HalamanPengunjungController::class, 'indexVidio']);
 
 // user yang blm terotentikasi = guest(tamu yg blm daftar)
 // middleware = filtering request rute sebelum masuk ke controller

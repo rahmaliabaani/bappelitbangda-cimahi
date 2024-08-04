@@ -98,6 +98,9 @@ class DashboardBeritaController extends Controller
         $validatedData = $request->validate($rules);
 
         if ($request->file('gambar')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
             $validatedData['gambar'] = $request->file('gambar')->store('gambar-berita');
         }
 

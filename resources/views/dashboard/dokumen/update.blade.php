@@ -33,11 +33,10 @@
           <div class="pb-3">
             <label for="dokumen" class="form-label" style="margin-bottom: -5px;">Dokumen</label>
               <input class="form-control mt-2 form-control-sm" id="dokumen" name="dokumen" type="file">
-							{{-- <input type="hidden" name="oldFile" value="{{ $dokumen->dokumen }}"> --}}
 							@if ($dokumen->dokumen)
 								<div class="form-group pb-3">
 									<label>Dokumen Saat ini</label>
-										<a href="{{ asset('storage/' . $dokumen->dokumen) }}" name="oldFile" target="_blank">Lihat Dokumen</a>
+										<a href="{{ asset('storage/' . $dokumen->dokumen) }}" id="oldFile" name="oldFile" target="_blank">Lihat Dokumen</a>
 								</div>
 							@endif
           </div>

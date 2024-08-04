@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dokumens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
+            $table->foreignId('id_user')->constrained(table: 'users', indexName: 'id_user_dok')->onDelete('restrict');
             $table->string('nama');
             $table->enum('kategori', ['Arsip Paparan', 'Dokumen Perencanaan']);
             $table->string('slug')->unique();

@@ -27,9 +27,9 @@
         <div class="card" style="border: none;">
           <div class="position-absolute px-3 py-2 text-white" style="background-color: #FF8E26;">{{ $brt->kategoriBerita->nama }}</div>
           @if ($brt->gambar)
-            <img src="{{ asset('storage/' . $brt->gambar) }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="max-height: 200px;">
+            <img src="{{ asset('storage/' . $brt->gambar) }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="height: 200px;">
           @else
-            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="max-height: 200px;">
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $brt->kategoriBerita->nama }}" class="card-img-top" style="height: 200px;">
           @endif
           <div class="card-body">
             <p class="card-text text-secondary">{{ $brt->publish_at->format('d F Y H:i') }}</p>

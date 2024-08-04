@@ -95,16 +95,14 @@ class DashboardDokumenController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        if ($request->file('dokumen')) {
-
-            if ($request->oldFile) {
-                Storage::delete($request->oldFile);
+        if ($request->hasFile('dokumen')) {
+            if ($dokumen->dokumen) {
+                Storage::delete($dokumen->dokumen);
             }
             $validatedData['dokumen'] = $request->file('dokumen')->store('dokumen');
         }
 
         $validatedData['slug'] = Str::slug($request->nama);
-
         $validatedData['id_user'] = auth()->user()->id;
 
         Dokumen::where('id', $dokumen->id)

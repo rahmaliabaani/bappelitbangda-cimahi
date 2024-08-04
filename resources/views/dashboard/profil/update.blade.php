@@ -24,7 +24,6 @@
         <div class="col-lg-6">
           <div class="pb-3">
             <label for="gambar" class="form-label" style="margin-bottom: -1px;">Gambar Struktur Organisasi</label>
-            <input type="hidden" name="oldImage" value="{{ $profil->gambar_struktur }}">
             @if ($profil->gambar_struktur)
               <img src="{{ asset('storage/' . $profil->gambar_struktur) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
@@ -94,12 +93,10 @@
         </div>
       </div>
       <hr>
-      @foreach ($officials as $official)
-      @endforeach 
       <div class="row pt-3">
         <div class="col-md-6">
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabad') is-invalid @enderror" id="nama_kabad" name="nama_kepala_badan" placeholder="Periode" value="{{ old('nama_kepala_badan', $official->nama_kepala_badan) }}">
+            <input type="text" class="form-control @error('nama_kabad') is-invalid @enderror" id="nama_kabad" name="nama_kepala_badan" placeholder="Periode" value="{{ old('nama_kepala_badan', $profil->official->nama_kepala_badan) }}">
             <label for="nama_kabad">Nama Kepala Badan</label>
             @error('nama_kabad')
                 <div class="invalid-feedback">
@@ -108,20 +105,19 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabad" class="form-label" style="margin-bottom: -1px;">Foto Kepala Badan</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepala_badan }}">
-            @if ($official->foto_kepala_badan)
-              <img src="{{ asset('storage/' . $official->foto_kepala_badan) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            <label for="foto_kepala_badan" class="form-label" style="margin-bottom: -1px;">Foto Kepala Badan</label>
+            @if ($profil->official->foto_kepala_badan)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepala_badan) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
-              <input class="form-control mt-2 form-control-sm @error('foto_kabad') is-invalid @enderror" id="foto_kabad" name="foto_kepala_badan" type="file">
-              @error('foto_kabad')
+              <input class="form-control mt-2 form-control-sm @error('foto_kepala_badan') is-invalid @enderror" id="foto_kepala_badan" name="foto_kepala_badan" type="file">
+              @error('foto_kepala_badan')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
               @enderror
           </div>          
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_p3m') is-invalid @enderror" id="nama_kabid_p3m" placeholder="Periode" name="nama_kepalabidang_p3m" value="{{ old('nama_kepalabidang_p3m', $official->nama_kepalabidang_p3m) }}">
+            <input type="text" class="form-control @error('nama_kabid_p3m') is-invalid @enderror" id="nama_kabid_p3m" placeholder="Periode" name="nama_kepalabidang_p3m" value="{{ old('nama_kepalabidang_p3m', $profil->official->nama_kepalabidang_p3m) }}">
             <label for="nama_kabid_p3m">Nama Kepala Bidang P3M</label>
             @error('nama_kabid_p3m')
                 <div class="invalid-feedback">
@@ -131,9 +127,8 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_p3m" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3M</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepalabidang_p3m }}">
-            @if ($official->foto_kepalabidang_p3m)
-              <img src="{{ asset('storage/' . $official->foto_kepalabidang_p3m) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            @if ($profil->official->foto_kepalabidang_p3m)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepalabidang_p3m) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3m') is-invalid @enderror" id="foto_kabid_p3m" name="foto_kepalabidang_p3m" type="file">
               @error('foto_kabid_p3m')
@@ -143,7 +138,7 @@
               @enderror
           </div>
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pesd') is-invalid @enderror" id="nama_kabid_pesd" placeholder="Periode" name="nama_kepalabidang_pesd" value="{{ old('nama_kepalabidang_pesd', $official->nama_kepalabidang_pesd) }}">
+            <input type="text" class="form-control @error('nama_kabid_pesd') is-invalid @enderror" id="nama_kabid_pesd" placeholder="Periode" name="nama_kepalabidang_pesd" value="{{ old('nama_kepalabidang_pesd', $profil->official->nama_kepalabidang_pesd) }}">
             <label for="nama_kabid_pesd">Nama Kepala Bidang PESD</label>
             @error('nama_kabid_pesd')
                 <div class="invalid-feedback">
@@ -153,9 +148,8 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pesd" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PESD</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepalabidang_pesd }}">
-            @if ($official->foto_kepalabidang_pesd)
-              <img src="{{ asset('storage/' . $official->foto_kepalabidang_pesd) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            @if ($profil->official->foto_kepalabidang_pesd)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepalabidang_pesd) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pesd') is-invalid @enderror" id="foto_kabid_pesd" name="foto_kepalabidang_pesd" type="file">
               @error('foto_kabid_pesd')
@@ -167,7 +161,7 @@
         </div>  
         <div class="col-md-6">
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e" value="{{ old('nama_kepalabidang_p3e', $official->nama_kepalabidang_p3e) }}">
+            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e" value="{{ old('nama_kepalabidang_p3e', $profil->official->nama_kepalabidang_p3e) }}">
             <label for="nama_kabid_p3e">Nama Kepala Bidang P3E</label>
             @error('nama_kabid_p3e')
               <div class="invalid-feedback">
@@ -177,9 +171,8 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepalabidang_p3e }}">
-            @if ($official->foto_kepalabidang_p3e)
-              <img src="{{ asset('storage/' . $official->foto_kepalabidang_p3e) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            @if ($profil->official->foto_kepalabidang_p3e)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepalabidang_p3e) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
               @error('foto_kabid_p3e')
@@ -189,7 +182,7 @@
               @enderror
           </div>
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pp') is-invalid @enderror" id="nama_kabid_pp" placeholder="Periode" name="nama_kepalabidang_pp" value="{{ old('nama_kepalabidang_pp', $official->nama_kepalabidang_pp) }}">
+            <input type="text" class="form-control @error('nama_kabid_pp') is-invalid @enderror" id="nama_kabid_pp" placeholder="Periode" name="nama_kepalabidang_pp" value="{{ old('nama_kepalabidang_pp', $profil->official->nama_kepalabidang_pp) }}">
             <label for="nama_kabid_pp">Nama Kepala Bidang PP</label>
             @error('nama_kabid_pp')
                 <div class="invalid-feedback">
@@ -199,9 +192,8 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PP</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepalabidang_pp }}">
-            @if ($official->foto_kepalabidang_pp)
-              <img src="{{ asset('storage/' . $official->foto_kepalabidang_pp) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            @if ($profil->official->foto_kepalabidang_pp)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepalabidang_pp) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pp') is-invalid @enderror" id="foto_kabid_pp" name="foto_kepalabidang_pp" type="file">
               @error('foto_kabid_pp')
@@ -211,7 +203,7 @@
               @enderror
           </div>
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_pik') is-invalid @enderror" id="nama_kabid_pik" placeholder="Periode" name="nama_kepalabidang_pik" value="{{ old('nama_kepalabidang_pik', $official->nama_kepalabidang_pik) }}">
+            <input type="text" class="form-control @error('nama_kabid_pik') is-invalid @enderror" id="nama_kabid_pik" placeholder="Periode" name="nama_kepalabidang_pik" value="{{ old('nama_kepalabidang_pik', $profil->official->nama_kepalabidang_pik) }}">
             <label for="nama_kabid_pik">Nama Kepala Bidang PIK</label>
             @error('nama_kabid_pik')
                 <div class="invalid-feedback">
@@ -221,9 +213,8 @@
           </div>
           <div class="pb-3">
             <label for="foto_kabid_pik" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PIK</label>
-            <input type="hidden" name="oldImage" value="{{ $official->foto_kepalabidang_pik }}">
-            @if ($official->foto_kepalabidang_pik)
-              <img src="{{ asset('storage/' . $official->foto_kepalabidang_pik) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
+            @if ($profil->official->foto_kepalabidang_pik)
+              <img src="{{ asset('storage/' . $profil->official->foto_kepalabidang_pik) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-3 d-block">
             @endif
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pik') is-invalid @enderror" id="foto_kabid_pik" name="foto_kepalabidang_pik" type="file">
               @error('foto_kabid_pik')

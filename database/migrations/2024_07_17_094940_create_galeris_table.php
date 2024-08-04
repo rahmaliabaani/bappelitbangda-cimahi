@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('galeris', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
+            $table->foreignId('id_user')->constrained(table: 'users', indexName: 'id_user_galeri')->onDelete('restrict');
             $table->string('nama');
             $table->enum('kategori', ['Foto', 'Vidio']);
             $table->string('slug')->unique();

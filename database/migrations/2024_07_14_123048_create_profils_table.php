@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profils', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_officials');
-            $table->foreignId('id_user');
+            $table->foreignId('id_user')->constrained(table: 'users', indexName: 'id_user_profil')->onDelete('restrict');
             $table->boolean('is_active')->default(false);
             $table->year('periode')->unique();
             $table->text('tujuan');

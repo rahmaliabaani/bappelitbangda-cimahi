@@ -38,7 +38,7 @@
               @if ($galeris->gambar)
                 <img src="{{ asset('storage/' . $galeris->gambar) }}" id="img-preview" class="img-fluid mt-2 mb-3 col-sm-5 d-block">
               @endif
-              <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file" value="{{ old('gambar', $galeris->gambar) }}">
+              <input class="form-control mt-2 form-control-sm @error('gambar') is-invalid @enderror" id="gambar" name="gambar" type="file">
                 @error('gambar')
                   <div class="invalid-feedback">
                     {{ $message }}

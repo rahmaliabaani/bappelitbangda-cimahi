@@ -19,11 +19,8 @@ class Informasi extends Model
     public function scopeFilter(Builder $query) : void
     {
         // Pencarian: ketika inputan cari kosong maka pencarian berhenti, tapi jika ada inputan maka menjalankan perintah function yaitu ambil querynya dan ambil nilai input carinya
-        
         $query->where('judul', 'like', '%' . request('cari') . '%')
                 ->orWhere('deskripsi', 'like', '%' . request('cari') . '%');
-                // ->join('kategori_informasis', 'informasis.id_kategori_informasi', '=', 'kategori_informasis.id')
-                // ->orWhere('kategori_informasis.nama', 'like', '%' . request('cari') . '%');
     }
 
     // Relasi Tabel

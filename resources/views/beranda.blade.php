@@ -56,13 +56,13 @@
         <div class="card" style="border: none;">
           <div class="position-absolute px-3 py-2 text-white" style="background-color: #FF8E26;">{{ $info->KategoriInformasi->nama }}</div>
           @if ($info->gambar)
-            <img src="{{ asset('storage/' . $info->gambar) }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
+            <img src="{{ asset('storage/' . $info->gambar) }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="height: 200px;">
           @else
-            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="max-height: 200px;">
+            <img src="{{ asset('img/gambar-default(1).jpg') }}" alt="{{ $info->KategoriInformasi->nama }}" class="card-img-top" style="height: 200px;">
           @endif
           <div class="card-body">
             <p class="card-text text-secondary">{{ $info->publish_at->format('d F Y H:i') }}</p>
-            <a href="/berita/{{ $info->slug }}" class="text-decoration-none fs-5">{{ $info->judul }}</a>
+            <a href="/informasi/{{ $info->slug }}" class="text-decoration-none fs-5">{{ $info->judul }}</a>
             <p class="card-text text-truncate">
                 {{ strip_tags($info->deskripsi) }}
             </p>

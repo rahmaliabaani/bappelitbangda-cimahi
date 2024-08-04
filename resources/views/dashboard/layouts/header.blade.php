@@ -54,7 +54,7 @@
       <div class="nav-item text-nowrap px-5">
         <form action="/logout" method="POST">
           @csrf
-          <button type="submit" class="nav-link px-3 border-0 bg-light fs-6">Keluar</button>
+          <button type="submit" class="nav-link px-3 border-0 bg-light fs-6">Keluar <i class="bi bi-arrow-bar-right"></i></button>
         </form>
       </div>
     </div>

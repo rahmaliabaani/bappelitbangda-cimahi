@@ -7,6 +7,7 @@ use App\Models\Official;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardProfilController extends Controller
@@ -18,8 +19,8 @@ class DashboardProfilController extends Controller
     {
         return view('dashboard.profil.index', [
             "title" => "Profil",
-            "profil" => Profil::latest()->filter()->get(),
-            "official" => Official::all()
+            "profil" => Profil::latest()->filter()->paginate(5),
+            // "official" => Official::all()
         ]);
     }
 
@@ -127,7 +128,7 @@ class DashboardProfilController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Profil $profil)
+    public function update(Request $request, Profil $profil, Official $official)
     {
         $rules = [
             'gambar_struktur' => 'image|file|max:1024',
@@ -157,11 +158,10 @@ class DashboardProfilController extends Controller
         $validatedData = $request->validate($rules);
 
         if ($request->file('gambar_struktur')) {
-            $oldImage = $profil->gambar_struktur; // Ambil old image dari profil
-                if ($oldImage) {
-                    Storage::delete($oldImage);
-                }
-                $validatedData['gambar_struktur'] = $request->file('gambar_struktur')->store('gambar-profil');
+            if ($profil->gambar_struktur) {
+                Storage::delete($profil->gambar_struktur);
+            }
+            $validatedData['gambar_struktur'] = $request->file('gambar_struktur')->store('gambar-profil');
         }
 
         $officialFiles = [
@@ -172,12 +172,11 @@ class DashboardProfilController extends Controller
             'foto_kepalabidang_pesd',
             'foto_kepalabidang_pik'
         ];
-    
+
         foreach ($officialFiles as $file) {
-            if ($request->file($file)) {
-                $oldImage = $profil->{$file}; // Ambil old image dari profil
-                if ($oldImage) {
-                    Storage::delete($oldImage);
+            if ($request->hasFile($file)) {
+                if ($profil->official->$file) {
+                    Storage::delete($profil->official->$file);
                 }
                 $validatedData[$file] = $request->file($file)->store('gambar-official');
             }
@@ -186,7 +185,7 @@ class DashboardProfilController extends Controller
         $validatedData['id_user'] = auth()->user()->id;
 
         $profilData = array_intersect_key($validatedData, array_flip([
-            'periode', 'gambar_struktur', 'fungsi', 'sejarah', 'tugas', 'tujuan', 'sasaran', 'id_officials', 'id_user', 'publish_at'
+            'periode', 'gambar_struktur', 'fungsi', 'sejarah', 'tugas', 'tujuan', 'sasaran', 'id_user', 'publish_at'
         ]));
         $officialData = array_intersect_key($validatedData, array_flip([
             'nama_kepala_badan', 'foto_kepala_badan', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',

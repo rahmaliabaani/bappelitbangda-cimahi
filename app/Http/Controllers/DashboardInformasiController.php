@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use console;
 use Carbon\Carbon;
 use App\Models\Informasi;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriInformasi;

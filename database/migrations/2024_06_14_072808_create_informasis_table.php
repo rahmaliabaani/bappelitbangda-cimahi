@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('informasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
-            $table->foreignId('id_kategori_informasi')->constrained(table: 'kategori_informasis', indexName: 'id')->onDelete('restrict');
+            $table->foreignId('id_user')->constrained(table: 'users', indexName: 'id_user_info')->onDelete('restrict');
+            $table->foreignId('id_kategori_informasi')->constrained(table: 'kategori_informasis', indexName: 'id_kate_info')->onDelete('restrict');
             $table->string('judul');
             $table->string('slug')->unique();
             $table->string('gambar')->nullable();

@@ -20,7 +20,6 @@
         @if ($informasi->gambar)
           <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
             <img src="{{ asset('storage/' . $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3">
-            {{-- <img src="{{ route('gambar.displayImage' , $informasi->gambar) }}" alt="{{ $informasi->kategoriInformasi->nama }}" class="img-fluid mt-3"> --}}
           </div>
         @else
           <div style="max-height: 350px; max-width: 600px; overflow: hidden;" class="m-auto">
@@ -28,11 +27,11 @@
           </div>
         @endif
 
-        {{-- <img src="../img/beranda.jpg" alt="" width="500px"> --}}
         <p class="pt-4 text-center">By. {{ $informasi->user->name }}</p>
         <h5 class="lh-base fw-normal kanankiri">
            {!! nl2br($informasi->deskripsi) !!}
         </h5>
+        <button type="button" class="btn btn-primary pt-2"><a href="/informasi" class="text-decoration-none text-white"><i class="bi bi-reply"></i> Kembali</a></button>
       </div>
     </div>
   </div>
