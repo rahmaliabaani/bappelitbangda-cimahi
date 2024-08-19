@@ -18,7 +18,7 @@ class DashboardInformasiController extends Controller
     {
         return view('dashboard.informasi.index', [
             "title" => "Informasi",
-            "informasi" => Informasi::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
+            "informasi" => Informasi::latest()->where('id_user', auth()->user()->id)->filter()->paginate(10)->withQueryString(),
 
         ]);
     }
@@ -42,7 +42,7 @@ class DashboardInformasiController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required|max:255|unique:informasis',
             'id_kategori_informasi' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'deskripsi' => 'required'
         ]);
 
@@ -88,7 +88,7 @@ class DashboardInformasiController extends Controller
     {
         $rules = [
             'id_kategori_informasi' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'deskripsi' => 'required'
         ];
 

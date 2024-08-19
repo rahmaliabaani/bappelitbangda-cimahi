@@ -15,7 +15,7 @@ class DashboardKateBeritaController extends Controller
     {
         return view('dashboard.kategori-berita.index', [
             "title" => "KategoriBerita",
-            "katberita" => KategoriBerita::latest()->filter()->paginate(5)->withQueryString()
+            "katberita" => KategoriBerita::latest()->filter()->paginate(10)->withQueryString()
         ]);
     }
 

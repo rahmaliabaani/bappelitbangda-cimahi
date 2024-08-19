@@ -97,7 +97,22 @@
                       </ul>
                     </div>
                   </div>
-                </div>   
+                </div>  
+                <div class="accordion-body row d-flex justify-content-center">
+                  <div class="col-lg-3 text-center">
+                    <div class="card border-0">
+                    @if ($profil->official->foto_sekretaris)
+                      <img src="{{ asset('storage/' . $profil->official->foto_sekretaris) }}" id="img-preview" class="img-fluid m-auto" style="width: 160px; height: 200px;">
+                    @else
+                      <img src="/img/default-orang.jpg" id="img-preview" class="img-fluid m-auto" style="width: 160px; height: 200px;">
+                    @endif
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ $profil->official->nama_sekretaris }}</li>
+                        <li class="list-group-item">Sekretaris</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> 
                 <div class="accordion-body row d-flex justify-content-center">
                   <div class="col-lg-2 text-center pb-3">
                     <div class="card border-0">
@@ -134,7 +149,7 @@
                       @endif
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">{{ $profil->official->nama_kepalabidang_pp }}</li>
-                          <li class="list-group-item">Kepala Bidang PP</li>
+                          <li class="list-group-item">Kepala Bidang LITBANG</li>
                         </ul>
                     </div>
                   </div>
@@ -147,7 +162,7 @@
                       @endif
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">{{ $profil->official->nama_kepalabidang_pesd }}</li>
-                          <li class="list-group-item">Kepala Bidang PESD</li>
+                          <li class="list-group-item">Kepala Bidang PESDA</li>
                         </ul>
                     </div>
                   </div>
@@ -160,7 +175,7 @@
                       @endif
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">{{ $profil->official->nama_kepalabidang_pik }}</li>
-                          <li class="list-group-item">Kepala Bidang PIK</li>
+                          <li class="list-group-item">Kepala Bidang INFRASWIL</li>
                         </ul>
                     </div>
                   </div>

@@ -17,7 +17,7 @@ class DashboardGaleriController extends Controller
     {
         return view('dashboard.galeri.index', [
             "title" => "Galeri",
-            "galeri" => Galeri::latest()->filter()->paginate(5)
+            "galeri" => Galeri::latest()->filter()->paginate(20)
         ]);
     }
 
@@ -40,7 +40,7 @@ class DashboardGaleriController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:255|unique:galeris',
             'kategori' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'link_vidio' => 'url'
         ]);
 
@@ -86,7 +86,7 @@ class DashboardGaleriController extends Controller
     {
         $rules = [
             'kategori' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'link_vidio' => 'url'
         ];
 

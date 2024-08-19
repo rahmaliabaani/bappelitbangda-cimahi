@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kepala_badan');
             $table->string('foto_kepala_badan')->nullable();
+            $table->string('nama_sekretaris');
+            $table->string('foto_sekretaris')->nullable();
             $table->string('nama_kepalabidang_p3e');
             $table->string('foto_kepalabidang_p3e')->nullable();
             $table->string('nama_kepalabidang_p3m');

@@ -17,7 +17,7 @@ class DashboardKateInfoController extends Controller
     {
         return view('dashboard.kategori-informasi.index', [
             "title" => "KategoriInformasi",
-            "katinformasi" => KategoriInformasi::latest()->filter()->paginate(5)->withQueryString(),
+            "katinformasi" => KategoriInformasi::latest()->filter()->paginate(10)->withQueryString(),
         ]);
     }
 

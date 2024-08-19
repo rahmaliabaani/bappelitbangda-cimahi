@@ -17,7 +17,7 @@ class DashboardDokumenController extends Controller
     {
         return view('dashboard.dokumen.index', [
             "title" => "Dokumen",
-            "dokumen" => Dokumen::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)
+            "dokumen" => Dokumen::latest()->where('id_user', auth()->user()->id)->filter()->paginate(10)
         ]);
         
     }
@@ -41,7 +41,7 @@ class DashboardDokumenController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:255|unique:dokumens',
             'kategori' => 'required',
-            'dokumen' => 'required|mimes:docx,pdf|max:2048'
+            'dokumen' => 'required|mimes:docx,pdf|max:102400'
         ]);
 
         if ($request->file('dokumen')) {
@@ -86,7 +86,7 @@ class DashboardDokumenController extends Controller
     {
         $rules = [
             'kategori' => 'required',
-            'dokumen' => 'mimes:docx,pdf|max:2048'
+            'dokumen' => 'mimes:docx,pdf|max:102400'
         ];
 
         if ($request->nama != $dokumen->nama) {

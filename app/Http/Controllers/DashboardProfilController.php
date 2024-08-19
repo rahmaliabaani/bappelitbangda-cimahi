@@ -19,7 +19,7 @@ class DashboardProfilController extends Controller
     {
         return view('dashboard.profil.index', [
             "title" => "Profil",
-            "profil" => Profil::latest()->filter()->paginate(5),
+            "profil" => Profil::latest()->filter()->paginate(10),
             // "official" => Official::all()
         ]);
     }
@@ -43,24 +43,26 @@ class DashboardProfilController extends Controller
     {
         $validatedData = $request->validate([
             'periode' => 'required|max:255|unique:profils',
-            'gambar_struktur' => 'required|image|file|max:1024',
+            'gambar_struktur' => 'required|image|file|max:5120',
             'fungsi' => 'required',
             'sejarah' => 'required',
             'tugas' => 'required',
             'tujuan' => 'required',
             'sasaran' => 'required',
             'nama_kepala_badan' => 'required',
-            'foto_kepala_badan' => 'image|file|max:1024',
+            'foto_kepala_badan' => 'image|file|max:5120',
+            'nama_sekretaris' => 'required',
+            'foto_sekretaris' => 'image|file|max:5120',
             'nama_kepalabidang_p3e' => 'required',
-            'foto_kepalabidang_p3e' => 'image|file|max:1024',
+            'foto_kepalabidang_p3e' => 'image|file|max:5120',
             'nama_kepalabidang_p3m' => 'required',
-            'foto_kepalabidang_p3m' => 'image|file|max:1024',
+            'foto_kepalabidang_p3m' => 'image|file|max:5120',
             'nama_kepalabidang_pp' => 'required',
-            'foto_kepalabidang_pp' => 'image|file|max:1024',
+            'foto_kepalabidang_pp' => 'image|file|max:5120',
             'nama_kepalabidang_pesd' => 'required',
-            'foto_kepalabidang_pesd' => 'image|file|max:1024',
+            'foto_kepalabidang_pesd' => 'image|file|max:5120',
             'nama_kepalabidang_pik' => 'required',
-            'foto_kepalabidang_pik' => 'image|file|max:1024'
+            'foto_kepalabidang_pik' => 'image|file|max:5120'
         ]);
     
         // Menyimpan file gambar struktur
@@ -71,6 +73,7 @@ class DashboardProfilController extends Controller
         // Menyimpan file foto pejabat
         $officialFiles = [
             'foto_kepala_badan',
+            'foto_sekretaris',
             'foto_kepalabidang_p3e',
             'foto_kepalabidang_p3m',
             'foto_kepalabidang_pp',
@@ -94,7 +97,7 @@ class DashboardProfilController extends Controller
             'periode', 'gambar_struktur', 'fungsi', 'sejarah', 'tugas', 'tujuan', 'sasaran', 'id_officials', 'id_user', 'publish_at'
         ]));
         $officialData = array_intersect_key($validatedData, array_flip([
-            'nama_kepala_badan', 'foto_kepala_badan', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',
+            'nama_kepala_badan', 'foto_kepala_badan', 'nama_sekretaris', 'foto_sekretaris', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',
             'nama_kepalabidang_pp', 'foto_kepalabidang_pp', 'nama_kepalabidang_pesd', 'foto_kepalabidang_pesd', 'nama_kepalabidang_pik', 'foto_kepalabidang_pik'
         ]));
     
@@ -131,24 +134,26 @@ class DashboardProfilController extends Controller
     public function update(Request $request, Profil $profil, Official $official)
     {
         $rules = [
-            'gambar_struktur' => 'image|file|max:1024',
+            'gambar_struktur' => 'image|file|max:5120',
             'fungsi' => 'required',
             'sejarah' => 'required',
             'tugas' => 'required',
             'tujuan' => 'required',
             'sasaran' => 'required',
             'nama_kepala_badan' => 'required',
-            'foto_kepala_badan' => 'image|file|max:1024',
+            'foto_kepala_badan' => 'image|file|max:5120',
+            'nama_sekretaris' => 'required',
+            'foto_sekretaris' => 'image|file|max:5120',
             'nama_kepalabidang_p3e' => 'required',
-            'foto_kepalabidang_p3e' => 'image|file|max:1024',
+            'foto_kepalabidang_p3e' => 'image|file|max:5120',
             'nama_kepalabidang_p3m' => 'required',
-            'foto_kepalabidang_p3m' => 'image|file|max:1024',
+            'foto_kepalabidang_p3m' => 'image|file|max:5120',
             'nama_kepalabidang_pp' => 'required',
-            'foto_kepalabidang_pp' => 'image|file|max:1024',
+            'foto_kepalabidang_pp' => 'image|file|max:5120',
             'nama_kepalabidang_pesd' => 'required',
-            'foto_kepalabidang_pesd' => 'image|file|max:1024',
+            'foto_kepalabidang_pesd' => 'image|file|max:5120',
             'nama_kepalabidang_pik' => 'required',
-            'foto_kepalabidang_pik' => 'image|file|max:1024'
+            'foto_kepalabidang_pik' => 'image|file|max:5120'
         ];
 
         if ($request->periode != $profil->periode) {
@@ -166,6 +171,7 @@ class DashboardProfilController extends Controller
 
         $officialFiles = [
             'foto_kepala_badan',
+            'foto_sekretaris',
             'foto_kepalabidang_p3e',
             'foto_kepalabidang_p3m',
             'foto_kepalabidang_pp',
@@ -188,7 +194,7 @@ class DashboardProfilController extends Controller
             'periode', 'gambar_struktur', 'fungsi', 'sejarah', 'tugas', 'tujuan', 'sasaran', 'id_user', 'publish_at'
         ]));
         $officialData = array_intersect_key($validatedData, array_flip([
-            'nama_kepala_badan', 'foto_kepala_badan', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',
+            'nama_kepala_badan', 'foto_kepala_badan', 'nama_sekretaris', 'foto_sekretaris', 'nama_kepalabidang_p3e', 'foto_kepalabidang_p3e', 'nama_kepalabidang_p3m', 'foto_kepalabidang_p3m',
             'nama_kepalabidang_pp', 'foto_kepalabidang_pp', 'nama_kepalabidang_pesd', 'foto_kepalabidang_pesd', 'nama_kepalabidang_pik', 'foto_kepalabidang_pik'
         ]));
 

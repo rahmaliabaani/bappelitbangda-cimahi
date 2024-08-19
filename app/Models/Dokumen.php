@@ -23,6 +23,8 @@ class Dokumen extends Model
     public static $kategoriD = [
         'Arsip Paparan',
         'Dokumen Perencanaan',
+        'Dokumen Monev',
+        'Dokumen Kelitbangan'
     ];
 
     // Untuk Konversi string publish_at menjadi objek carbon = mengubah format penulisan tanggalbulantahun jammenit

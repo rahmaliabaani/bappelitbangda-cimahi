@@ -18,7 +18,7 @@ class DashboardBeritaController extends Controller
     {
         return view('dashboard.berita.index', [
             "title" => "Berita",
-            "berita" => Berita::latest()->where('id_user', auth()->user()->id)->filter()->paginate(5)->withQueryString(),
+            "berita" => Berita::latest()->where('id_user', auth()->user()->id)->filter()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -41,7 +41,7 @@ class DashboardBeritaController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required|max:255|unique:beritas',
             'id_kategori_berita' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'deskripsi' => 'required'
         ]);
 
@@ -87,7 +87,7 @@ class DashboardBeritaController extends Controller
     {
         $rules = [
             'id_kategori_berita' => 'required',
-            'gambar' => 'image|file|max:1024',
+            'gambar' => 'image|file|max:5120',
             'deskripsi' => 'required'
         ];
 

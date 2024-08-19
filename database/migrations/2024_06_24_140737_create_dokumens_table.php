@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user')->constrained(table: 'users', indexName: 'id_user_dok')->onDelete('restrict');
             $table->string('nama');
-            $table->enum('kategori', ['Arsip Paparan', 'Dokumen Perencanaan']);
+            $table->enum('kategori', ['Arsip Paparan', 'Dokumen Perencanaan', 'Dokumen Monev', 'Dokumen Kelitbangan']);
             $table->string('slug')->unique();
             $table->string('dokumen');
             $table->timestamp('publish_at');

@@ -19,6 +19,12 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Dokumen Perencanaan</button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="monev-tab" data-bs-toggle="tab" data-bs-target="#monev-tab-pane" type="button" role="tab" aria-controls="monev-tab-pane" aria-selected="false">Dokumen Monev</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="litbang-tab" data-bs-toggle="tab" data-bs-target="#litbang-tab-pane" type="button" role="tab" aria-controls="litbang-tab-pane" aria-selected="false">Dokumen Kelitbangan</button>
+          </li>
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -42,7 +48,7 @@
             </table>
           </div>
           <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-          <table class="table table-bordered table-responsive table-light mt-4 text-center">
+            <table class="table table-bordered table-responsive table-light mt-4 text-center">
               <thead>
                 <tr>
                   <th col style="width: 5%;">No</th>
@@ -56,6 +62,46 @@
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $dkn2->nama }}</td>
                   <td><a href="{{ asset('storage/' . $dkn2->dokumen) }}" target="_blank">Lihat</a></td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="monev-tab-pane" role="tabpanel" aria-labelledby="monev-tab" tabindex="0">
+            <table class="table table-bordered table-responsive table-light mt-4 text-center">
+              <thead>
+                <tr>
+                  <th col style="width: 5%;">No</th>
+                  <th>Dokumen</th>
+                  <th style="width: 7%;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($dokumen3 as $dkn3)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $dkn3->nama }}</td>
+                  <td><a href="{{ asset('storage/' . $dkn3->dokumen) }}" target="_blank">Lihat</a></td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="litbang-tab-pane" role="tabpanel" aria-labelledby="litbang-tab" tabindex="0">
+            <table class="table table-bordered table-responsive table-light mt-4 text-center">
+              <thead>
+                <tr>
+                  <th col style="width: 5%;">No</th>
+                  <th>Dokumen</th>
+                  <th style="width: 7%;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($dokumen4 as $dkn4)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $dkn4->nama }}</td>
+                  <td><a href="{{ asset('storage/' . $dkn4->dokumen) }}" target="_blank">Lihat</a></td>
                 </tr>
                 @endforeach
               </tbody>

@@ -44,6 +44,9 @@
           <li class="nav-item">
             <a class="nav-link {{ ($title === 'Profil') ? 'active' : '' }}" href="/profil">Profil</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ ($title === 'Simrenda') ? 'active' : '' }}" href="https://simrenda.cimahikota.go.id/" target="_blank">Simrenda</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle {{ ($title === 'Galeri') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown">
               Galeri

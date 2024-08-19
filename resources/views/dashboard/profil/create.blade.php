@@ -110,6 +110,25 @@
                   {{ $message }}
                 </div>
               @enderror
+          </div>
+          <div class="form-floating pb-3">
+            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e" value="{{ old('nama_kepalabidang_p3e') }}">
+            <label for="nama_kabid_p3e">Nama Kepala Bidang P3E</label>
+            @error('nama_kabid_p3e')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+          <div class="pb-3">
+            <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
+              {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
+              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
+              @error('foto_kabid_p3e')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
           </div>          
           <div class="form-floating pb-3">
             <input type="text" class="form-control @error('nama_kabid_p3m') is-invalid @enderror" id="nama_kabid_p3m" placeholder="Periode" name="nama_kepalabidang_p3m" value="{{ old('nama_kepalabidang_p3m') }}">
@@ -132,7 +151,7 @@
           </div>
           <div class="form-floating pb-3">
             <input type="text" class="form-control @error('nama_kabid_pesd') is-invalid @enderror" id="nama_kabid_pesd" placeholder="Periode" name="nama_kepalabidang_pesd" value="{{ old('nama_kepalabidang_pesd') }}">
-            <label for="nama_kabid_pesd">Nama Kepala Bidang PESD</label>
+            <label for="nama_kabid_pesd">Nama Kepala Bidang PESDA</label>
             @error('nama_kabid_pesd')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -140,7 +159,7 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabid_pesd" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PESD</label>
+            <label for="foto_kabid_pesd" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PESDA</label>
               {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pesd') is-invalid @enderror" id="foto_kabid_pesd" name="foto_kepalabidang_pesd" type="file">
               @error('foto_kabid_pesd')
@@ -152,19 +171,19 @@
         </div>  
         <div class="col-md-6">
           <div class="form-floating pb-3">
-            <input type="text" class="form-control @error('nama_kabid_p3e') is-invalid @enderror" id="nama_kabid_p3e" placeholder="Periode" name="nama_kepalabidang_p3e" value="{{ old('nama_kepalabidang_p3e') }}">
-            <label for="nama_kabid_p3e">Nama Kepala Bidang P3E</label>
-            @error('nama_kabid_p3e')
+            <input type="text" class="form-control @error('nama_sekretaris') is-invalid @enderror" id="nama_sekretaris" placeholder="Periode" name="nama_sekretaris" value="{{ old('nama_sekretaris') }}">
+            <label for="nama_sekretaris">Nama Sekretaris</label>
+            @error('nama_sekretaris')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
             @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabid_p3e" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang P3E</label>
+            <label for="foto_sekretaris" class="form-label" style="margin-bottom: -1px;">Foto Sekretaris</label>
               {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
-              <input class="form-control mt-2 form-control-sm @error('foto_kabid_p3e') is-invalid @enderror" id="foto_kabid_p3e" name="foto_kepalabidang_p3e" type="file">
-              @error('foto_kabid_p3e')
+              <input class="form-control mt-2 form-control-sm @error('foto_sekretaris') is-invalid @enderror" id="foto_sekretaris" name="foto_sekretaris" type="file">
+              @error('foto_sekretaris')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
@@ -172,7 +191,7 @@
           </div>
           <div class="form-floating pb-3">
             <input type="text" class="form-control @error('nama_kabid_pp') is-invalid @enderror" id="nama_kabid_pp" placeholder="Periode" name="nama_kepalabidang_pp" value="{{ old('nama_kepalabidang_pp') }}">
-            <label for="nama_kabid_pp">Nama Kepala Bidang PP</label>
+            <label for="nama_kabid_pp">Nama Kepala Bidang LITBANG</label>
             @error('nama_kabid_pp')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -180,7 +199,7 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PP</label>
+            <label for="foto_kabid_pp" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang LITBANG</label>
               {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pp') is-invalid @enderror" id="foto_kabid_pp" name="foto_kepalabidang_pp" type="file">
               @error('foto_kabid_pp')
@@ -191,7 +210,7 @@
           </div>
           <div class="form-floating pb-3">
             <input type="text" class="form-control @error('nama_kabid_pik') is-invalid @enderror" id="nama_kabid_pik" placeholder="Periode" name="nama_kepalabidang_pik" value="{{ old('nama_kepalabidang_pik') }}">
-            <label for="nama_kabid_pik">Nama Kepala Bidang PIK</label>
+            <label for="nama_kabid_pik">Nama Kepala Bidang INFRASWIL</label>
             @error('nama_kabid_pik')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -199,7 +218,7 @@
               @enderror
           </div>
           <div class="pb-3">
-            <label for="foto_kabid_pik" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang PIK</label>
+            <label for="foto_kabid_pik" class="form-label" style="margin-bottom: -1px;">Foto Kepala Bidang INFRASWIL</label>
               {{-- <img src="" id="img-preview" class="img-fluid mt-1 col-sm-5 d-block"> --}}
               <input class="form-control mt-2 form-control-sm @error('foto_kabid_pik') is-invalid @enderror" id="foto_kabid_pik" name="foto_kepalabidang_pik" type="file">
               @error('foto_kabid_pik')

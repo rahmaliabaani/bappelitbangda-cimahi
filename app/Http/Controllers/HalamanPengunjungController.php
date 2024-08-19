@@ -64,7 +64,9 @@ class HalamanPengunjungController extends Controller
             "title" => "Dokumen",
             // Ambil semua dokumen dengan kategori
             "dokumen1" => Dokumen::where('kategori', 'Arsip Paparan')->paginate(5)->withQueryString(),
-            "dokumen2" => Dokumen::where('kategori', 'Dokumen Perencanaan')->paginate(5)->withQueryString()
+            "dokumen2" => Dokumen::where('kategori', 'Dokumen Perencanaan')->paginate(5)->withQueryString(),
+            "dokumen3" => Dokumen::where('kategori', 'Dokumen Monev')->paginate(5)->withQueryString(),
+            "dokumen4" => Dokumen::where('kategori', 'Dokumen Kelitbangan')->paginate(5)->withQueryString(),
         ]);
     }
 
